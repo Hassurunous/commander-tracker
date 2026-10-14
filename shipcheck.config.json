@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "respectGitignore": true,
+  "checks": [
+    {
+      "id": "lint", "purpose": "lint", "required": true,
+      "command": "node", "args": ["node_modules/eslint/bin/eslint.js", ".", "--format", "json"],
+      "format": "eslint-json"
+    },
+    {
+      "id": "types-app", "purpose": "typecheck", "required": true,
+      "command": "node", "args": ["node_modules/typescript/bin/tsc", "--project", "tsconfig.app.json", "--noEmit", "--pretty", "false"],
+      "failureExitCodes": [1, 2]
+    },
+    {
+      "id": "types-node", "purpose": "typecheck", "required": true,
+      "command": "node", "args": ["node_modules/typescript/bin/tsc", "--project", "tsconfig.node.json", "--noEmit", "--pretty", "false"],
+      "failureExitCodes": [1, 2]
+    },
+    {
+      "id": "pwa-build-icons", "purpose": "test", "required": true,
+      "command": "node", "args": ["scripts/check-pwa-icons.mjs"],
+      "failureExitCodes": [1], "timeoutMs": 210000, "maxOutputBytes": 1048576
+    }
+  ]
+}
