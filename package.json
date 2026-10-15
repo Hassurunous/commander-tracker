@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:artifacts": "node --test test/pwa-icons.test.mjs",
+    "test:integration": "npm run build && npm run test:artifacts"
   },
   "dependencies": {
     "react": "^18.3.1",
