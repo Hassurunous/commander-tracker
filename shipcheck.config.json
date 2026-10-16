@@ -75,7 +75,7 @@
     "maxOutputTokens": 2000,
     "timeoutMs": 60000,
     "maxFiles": 24,
-    "maxContextBytes": 64000
+    "maxContextBytes": 64000,
     "codexTimeoutMs": 120000
   },
   "currentTask": {
