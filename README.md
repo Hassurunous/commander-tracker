@@ -1,74 +1,39 @@
-# Commander Life Tracker
+# Commander Tracker
 
-A Progressive Web App (PWA) for tracking life totals, poison counters, and commander damage in Magic: The Gathering’s Commander format. Built with [Vite](https://vitejs.dev/), React, SWC, and TypeScript.  
+A React and TypeScript app for tracking a Magic: The Gathering Commander table. The intended experience prioritizes readable life totals, fast touch adjustments, flexible trackers, and a shared landscape phone or tablet.
 
-## Features
+## Current application
 
-### MVP Features
-- **Life Tracking:**  
-  Track life totals for multiple players with simple adjustments (+1/-1, +5/-5).  
+Two fixed players each start at 40 life and zero poison. Separate buttons adjust each value by one. Life can be negative; poison stops at zero. Values are held in memory and are not restored after a reload.
 
-- **Commander Damage Tracking:**  
-  Track damage dealt by each commander to every player.  
+Vite PWA configuration and icons are present. This does not establish browser installability, reliable offline use, or persistent game state. Expandable tables, commander damage, generic trackers, the selected Obsidian Arena layout, undo, and connected personal phones are not implemented in the application.
 
-- **Poison Counter Tracking:**  
-  Keep track of poison counters for all players.  
+## Product planning and design
 
-- **Random Player Picker:**  
-  Select a random player, ideal for deciding turn order or resolving in-game decisions.  
+[Current functionality](docs/FUNCTIONALITY.md) records what the application does today. [The product roadmap](docs/ROADMAP.md) records intended functionality, milestone status, open decisions, and completed work.
 
-- **Offline Mode:**  
-  Fully functional without internet connection, with cached assets and persistent game state.  
+For implementation details, read [saved layout decisions](docs/DESIGN_DECISIONS.md), [the design specification](docs/DESIGN_SPEC.md), [interaction contracts](docs/DESIGN_INTERACTIONS.md), and [the phased implementation brief](docs/DESIGN_IMPLEMENTATION.md). HTML references demonstrate design intent. Roadmap entries do not authorize implementation or paid review.
 
-### Stretch Features (Planned for Future Versions)
-- **Customizable Player Names and Avatars:** Personalize player entries.  
-- **Game Logs:** View a history of life changes, commander damage, and poison counters.  
-- **Themes:** Add color schemes or “skins” for a more customized experience.
-- **Add/Remove Players:** Functionality to add and remove players from the game.
-- **Configurable Settings:** Ability to change the starting life totals for a game, as well as other game-level settings.
-- **Emblem Tracking:** Track all of the emblems that get created in a game for quick reference and assign those emblems to player(s)  
+## Getting started
 
-## Getting Started
+Run from a local checkout with Node.js and npm available. Windows x64 with Node 22 is the qualified development setup.
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) installed on your system.  
+```sh
+npm ci --ignore-scripts --no-audit --no-fund
+npm run dev
+```
 
-### Installation
-1. Clone this repository:  
-   ```bash
-   git clone https://github.com/your-username/commander-life-tracker.git
-   cd commander-life-tracker
-2. Install dependencies:
+Open the local address printed by Vite. To build or preview production output:
 
-   npm install
+```sh
+npm run build
+npm run preview
+```
 
-3. Run the development server:
-
-    npm run dev
-
-    Open the app in your browser:
-        Visit http://localhost:5173/.
-
-4. Build for Production
-
-   To build the app for deployment:
-
-      npm run build
-
-5. Preview Production Build
-
-   To preview the production build locally:
-
-      npm run preview
-
-
-### Contributing
-
-Contributions are welcome! If you’d like to add features, fix bugs, or expand the project, feel free to fork the repo and submit a pull request.
-
-### License
-
-This project is licensed under the MIT License. See LICENSE for details.
 ## Development checks and agent workflow
 
-See [Shipcheck setup](docs/SHIPCHECK.md), [the bounded developer loop](docs/DEVELOPER_LOOP.md), and [agent instructions](AGENTS.md) for required checks, task review, API authorization and completion criteria.
+Read [agent instructions](AGENTS.md), [Shipcheck setup](docs/SHIPCHECK.md), and [the bounded developer loop](docs/DEVELOPER_LOOP.md). Reconcile each new implementation ticket with `shipcheck.config.json` before starting. Design selection does not replace its current task or authorize paid review.
+
+## License
+
+This project is licensed under the MIT License. See LICENSE for details.
