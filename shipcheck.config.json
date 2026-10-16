@@ -50,6 +50,20 @@
         1,
         2
       ]
+    },
+    {
+      "id": "behavior",
+      "purpose": "test",
+      "required": true,
+      "command": "node",
+      "args": [
+        "node_modules/vitest/vitest.mjs",
+        "run"
+      ],
+      "timeoutMs": 60000,
+      "failureExitCodes": [
+        1
+      ]
     }
   ]
 }

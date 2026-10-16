@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 
-interface Player {
-    name: string;
-    life: number;
-    poison: number;
-}
+import { updatePoison, type Player } from './poison';
 
 const LifeTracker: React.FC = () => {
     const [players, setPlayers] = useState<Player[]>([
@@ -19,9 +15,7 @@ const LifeTracker: React.FC = () => {
     };
 
     const changePoison = (index: number, delta: number) => {
-        const updated = [...players];
-        updated[index].poison += delta;
-        setPlayers(updated);
+        setPlayers(current => updatePoison(current, index, delta));
     };
 
     return (
@@ -30,11 +24,11 @@ const LifeTracker: React.FC = () => {
                 <div key={index}>
                     <h3>{player.name}</h3>
                     <p>Life: {player.life}</p>
-                    <button onClick={() => changeLife(index, 1)}>+1</button>
-                    <button onClick={() => changeLife(index, -1)}>-1</button>
+                    <button aria-label={`Increase life for ${player.name}`} onClick={() => changeLife(index, 1)}>+1</button>
+                    <button aria-label={`Decrease life for ${player.name}`} onClick={() => changeLife(index, -1)}>-1</button>
                     <p>Poison: {player.poison}</p>
-                    <button onClick={() => changePoison(index, 1)}>+1</button>
-                    <button onClick={() => changePoison(index, -1)}>-1</button>
+                    <button aria-label={`Increase poison for ${player.name}`} onClick={() => changePoison(index, 1)}>+1</button>
+                    <button aria-label={`Decrease poison for ${player.name}`} onClick={() => changePoison(index, -1)}>-1</button>
                 </div>
             ))}
         </div>
