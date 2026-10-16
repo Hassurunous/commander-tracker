@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "illustrative-design-data-not-a-runtime-migration",
+  "gameId": "game-example",
+  "definitions": [
+    { "id": "life", "version": 1, "label": "Life", "valueKind": "integer", "scope": "player", "initialValue": 40, "step": 1, "minimum": null, "maximum": null, "protected": true },
+    { "id": "poison", "version": 1, "label": "Poison", "valueKind": "integer", "scope": "player", "initialValue": 0, "step": 1, "minimum": 0, "maximum": null, "protected": false },
+    { "id": "energy", "version": 1, "label": "Energy", "valueKind": "integer", "scope": "player", "initialValue": 0, "step": 1, "minimum": 0, "maximum": null, "protected": false },
+    { "id": "experience", "version": 1, "label": "Experience", "valueKind": "integer", "scope": "player", "initialValue": 0, "step": 1, "minimum": 0, "maximum": null, "protected": false },
+    { "id": "commander-damage", "version": 1, "label": "Commander damage", "valueKind": "integer", "scope": "directed-pair", "initialValue": 0, "step": 1, "minimum": 0, "maximum": null, "protected": false },
+    { "id": "custom-quest", "version": 1, "label": "Quest progress", "valueKind": "integer", "scope": "player", "initialValue": 0, "step": 1, "minimum": 0, "maximum": null, "protected": false },
+    { "id": "custom-balance", "version": 1, "label": "Table balance", "valueKind": "integer", "scope": "table", "initialValue": 0, "step": 1, "minimum": null, "maximum": null, "protected": false }
+  ],
+  "players": [
+    { "id": "player-1", "seat": 1, "name": "Player 1" },
+    { "id": "player-2", "seat": 2, "name": "Player 2" },
+    { "id": "player-3", "seat": 3, "name": "Player 3" },
+    { "id": "player-4", "seat": 4, "name": "Player 4" }
+  ],
+  "commanders": [
+    { "id": "commander-2-a", "ownerPlayerId": "player-2", "label": "Commander A" },
+    { "id": "commander-2-b", "ownerPlayerId": "player-2", "label": "Commander B" }
+  ],
+  "instances": [
+    { "id": "life-1", "definitionId": "life", "definitionVersion": 1, "gameId": "game-example", "subjectId": "player-1", "value": 37, "visible": true, "pinned": true },
+    { "id": "life-2", "definitionId": "life", "definitionVersion": 1, "gameId": "game-example", "subjectId": "player-2", "value": 40, "visible": true, "pinned": true },
+    { "id": "life-3", "definitionId": "life", "definitionVersion": 1, "gameId": "game-example", "subjectId": "player-3", "value": 35, "visible": true, "pinned": true },
+    { "id": "life-4", "definitionId": "life", "definitionVersion": 1, "gameId": "game-example", "subjectId": "player-4", "value": 42, "visible": true, "pinned": true },
+    { "id": "poison-1", "definitionId": "poison", "definitionVersion": 1, "gameId": "game-example", "subjectId": "player-1", "value": 2, "visible": true, "pinned": false },
+    { "id": "energy-1", "definitionId": "energy", "definitionVersion": 1, "gameId": "game-example", "subjectId": "player-1", "value": 3, "visible": true, "pinned": false },
+    { "id": "experience-1", "definitionId": "experience", "definitionVersion": 1, "gameId": "game-example", "subjectId": "player-1", "value": 0, "visible": true, "pinned": false },
+    { "id": "damage-2a-1", "definitionId": "commander-damage", "definitionVersion": 1, "gameId": "game-example", "sourceEntityId": "commander-2-a", "recipientPlayerId": "player-1", "value": 3, "visible": true, "pinned": false },
+    { "id": "damage-2b-1", "definitionId": "commander-damage", "definitionVersion": 1, "gameId": "game-example", "sourceEntityId": "commander-2-b", "recipientPlayerId": "player-1", "value": 5, "visible": true, "pinned": false },
+    { "id": "damage-2a-3", "definitionId": "commander-damage", "definitionVersion": 1, "gameId": "game-example", "sourceEntityId": "commander-2-a", "recipientPlayerId": "player-3", "value": 1, "visible": true, "pinned": false },
+    { "id": "quest-1", "definitionId": "custom-quest", "definitionVersion": 1, "gameId": "game-example", "subjectId": "player-1", "value": 4, "visible": true, "pinned": false },
+    { "id": "balance-table", "definitionId": "custom-balance", "definitionVersion": 1, "gameId": "game-example", "subjectId": "game-example", "value": -2, "visible": true, "pinned": false }
+  ]
+}
