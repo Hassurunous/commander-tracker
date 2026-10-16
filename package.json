@@ -11,7 +11,9 @@
     "test:artifacts": "node --test test/pwa-icons.test.mjs",
     "test:integration": "npm run build && npm run test:artifacts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "storybook": "storybook dev -p 6006 --no-open --disable-telemetry",
+    "build-storybook": "storybook build --disable-telemetry"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -20,6 +22,9 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "@storybook/addon-a11y": "10.6.2",
+    "@storybook/addon-docs": "10.6.2",
+    "@storybook/react-vite": "10.6.2",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
     "@types/react": "^18.3.18",
@@ -30,6 +35,7 @@
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
     "jsdom": "26.1.0",
+    "storybook": "10.6.2",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5",

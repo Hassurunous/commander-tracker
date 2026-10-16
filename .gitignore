@@ -25,3 +25,6 @@ dist-ssr
 
 # Local Shipcheck reports and developer-loop records
 audit-reports/
+
+# Generated component workbench
+storybook-static/
