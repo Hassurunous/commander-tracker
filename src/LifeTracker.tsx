@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { updatePoison, type Player } from './poison';
+import { CounterControl } from './components/CounterControl';
 
 const LifeTracker: React.FC = () => {
     const [players, setPlayers] = useState<Player[]>([
@@ -23,12 +24,8 @@ const LifeTracker: React.FC = () => {
             {players.map((player, index) => (
                 <div key={index}>
                     <h3>{player.name}</h3>
-                    <p>Life: {player.life}</p>
-                    <button aria-label={`Increase life for ${player.name}`} onClick={() => changeLife(index, 1)}>+1</button>
-                    <button aria-label={`Decrease life for ${player.name}`} onClick={() => changeLife(index, -1)}>-1</button>
-                    <p>Poison: {player.poison}</p>
-                    <button aria-label={`Increase poison for ${player.name}`} onClick={() => changePoison(index, 1)}>+1</button>
-                    <button aria-label={`Decrease poison for ${player.name}`} onClick={() => changePoison(index, -1)}>-1</button>
+                    <CounterControl playerName={player.name} label="Life" value={player.life} onChange={delta => changeLife(index, delta)} />
+                    <CounterControl playerName={player.name} label="Poison" value={player.poison} onChange={delta => changePoison(index, delta)} />
                 </div>
             ))}
         </div>

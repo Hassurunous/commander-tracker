@@ -14,6 +14,11 @@ Preserve existing React and TypeScript conventions. Proposed component boundarie
 
 ## Phase one Visual foundation
 
+Owner clarification: implement the UI as a custom React component library with
+individual components inspectable in Storybook. Use shared production components
+and colocated stories, following [the component library guide](COMPONENT_LIBRARY.md).
+Include meaningful states in Storybook as each UI ticket is delivered.
+
 Candidate ticket: `obsidian-frames`. Restyle the existing two-player app with tokens, nameplates, layered borders, life wells, and a padded stacked-layers entry to a player-specific poison inspector. This is a staged presentation of the existing poison controls, not implementation of the generic tracker model. Preserve the two-player initial state, counter semantics, and accessible player/counter labels; add tests for opening and closing the inspector without changing values. Do not introduce setup, persistence, larger tables, or synchronization in this ticket.
 
 Likely source: src/index.css, src/App.tsx, src/LifeTracker.tsx; add a stylesheet or components only where useful. App.css is currently unimported template CSS; do not assume editing it changes the app. Update markup-sensitive test selectors if necessary while preserving behavioral assertions. Do not alter poison thresholds or life semantics.

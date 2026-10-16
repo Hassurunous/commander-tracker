@@ -32,6 +32,10 @@ npm run preview
 
 ## Development checks and agent workflow
 
+The UI uses custom React components with a Storybook workbench. Run
+`npm run storybook` to inspect them locally, or `npm run build-storybook` for a
+static build. See [the component library guide](docs/COMPONENT_LIBRARY.md).
+
 Read [agent instructions](AGENTS.md), [Shipcheck setup](docs/SHIPCHECK.md), and [the bounded developer loop](docs/DEVELOPER_LOOP.md). Reconcile each new implementation ticket with `shipcheck.config.json` before starting. Design selection does not replace its current task or authorize paid review.
 
 ## License
