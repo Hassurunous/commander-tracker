@@ -24,7 +24,7 @@ A failing artifact assertion is reported by the test runner with a nonzero exit 
 
 To reproduce a missing-file failure, after a successful build temporarily move a declared icon from generated dist to a safe temporary location, run test:artifacts expecting failure, and restore it in a finally block. Do not modify source assets or criteria. Re-run test:artifacts after restoration.
 
-The production build writes dist (including manifest/service worker) and may create tool caches under node_modules; TypeScript build information is also stored under node_modules. Existing Git ignores exclude these generated locations and Shipcheck inherits those ignores. External commands are authorized execution, not sandboxed by Shipcheck. No fixing flags, remote analysis or paid API calls are configured. Binary text-inspection omissions and partial audit coverage remain visible even when routine checks pass.
+The production build writes dist (including manifest/service worker) and may create tool caches under node_modules; TypeScript build information is also stored under node_modules. Existing Git ignores exclude these generated locations and Shipcheck inherits those ignores. External commands are authorized execution, not sandboxed by Shipcheck. No fixing flags or automatic paid execution are configured. Optional AI settings name an environment variable; live execution still needs explicit authorization and a named allowance. Binary text-inspection omissions and partial audit coverage remain visible even when routine checks pass.
 
 ## Behavioral tests
 
@@ -33,3 +33,12 @@ The production build writes dist (including manifest/service worker) and may cre
 Pinned development-only dependencies: Vitest 3.2.4 provides Vite-compatible TSX execution; jsdom 26.1.0 supplies a DOM; React Testing Library 16.3.0 renders real React components and queries accessible controls; user-event 14.6.1 models user interactions. No additional assertion extension or browser automation package is needed. These tests do not establish real-browser rendering, persistence, multiplayer synchronization, or installability. Production build/artifact checks remain separate via test:integration.
 
 The poison updater also has focused unit tests for zero boundaries, positive increments/decrements, player isolation and frozen-input immutability. The component integration tests exercise the updater through real rendered controls. Both layers run with npm test and the required behavior check.
+
+## Developer-agent workflow
+
+Read [the bounded developer loop](DEVELOPER_LOOP.md) and root AGENTS.md. The root
+configuration retains all four required checks and adds the poison-floor current
+task plus optional low-cost AI settings. Audit reports are ignored and excluded
+under audit-reports/. Ordinary audit does not assess currentTask; use task with
+authorized live AI for requirements review. Loop limits live in the agent
+instructions, not unsupported configuration keys.

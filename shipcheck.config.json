@@ -65,5 +65,39 @@
         1
       ]
     }
-  ]
+  ],
+  "exclude": [
+    "audit-reports/**"
+  ],
+  "ai": {
+    "apiKeyEnv": "SHIPCHECK_API_KEY",
+    "mode": "low-cost",
+    "maxOutputTokens": 2000,
+    "timeoutMs": 60000
+  },
+  "currentTask": {
+    "id": "poison-floor",
+    "title": "Prevent negative poison counters",
+    "files": [
+      "src/LifeTracker.tsx",
+      "src/poison.ts"
+    ],
+    "requirements": [
+      {
+        "id": "floor",
+        "text": "Poison starts at zero. Decrementing poison at zero leaves it at zero, including repeated decrements."
+      },
+      {
+        "id": "updates",
+        "text": "Increment adds one; decrement subtracts one from positive poison and stops at zero."
+      },
+      {
+        "id": "isolation",
+        "text": "Only the selected player's poison changes. Other players and life totals remain unchanged. Life controls retain their existing behavior, including negative totals."
+      }
+    ],
+    "nonGoals": [
+      "No persistence, reset, player-management, or unrelated life-handler changes."
+    ]
+  }
 }
