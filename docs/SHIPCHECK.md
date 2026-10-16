@@ -24,7 +24,7 @@ A failing artifact assertion is reported by the test runner with a nonzero exit 
 
 To reproduce a missing-file failure, after a successful build temporarily move a declared icon from generated dist to a safe temporary location, run test:artifacts expecting failure, and restore it in a finally block. Do not modify source assets or criteria. Re-run test:artifacts after restoration.
 
-The production build writes dist (including manifest/service worker) and may create tool caches under node_modules; TypeScript build information is also stored under node_modules. Existing Git ignores exclude these generated locations and Shipcheck inherits those ignores. External commands are authorized execution, not sandboxed by Shipcheck. No fixing flags or automatic paid execution are configured. Optional AI settings name an environment variable; live execution still needs explicit authorization and a named allowance. Binary text-inspection omissions and partial audit coverage remain visible even when routine checks pass.
+The production build writes dist (including manifest/service worker) and may create tool caches under node_modules; TypeScript build information is also stored under node_modules. Existing Git ignores exclude these generated locations and Shipcheck inherits those ignores. External commands are authorized execution, not sandboxed by Shipcheck. No fixing flags or automatic paid execution are configured. Prefer `--ai codex` for authorized ChatGPT subscription review; it requires a native Codex CLI signed in with ChatGPT and never falls back to paid API calls. Optional direct API execution (`--ai live`) still needs separate spending authorization, an API key and a named allowance. Binary text-inspection omissions and partial audit coverage remain visible even when routine checks pass.
 
 ## Behavioral tests
 
@@ -40,5 +40,6 @@ Read [the bounded developer loop](DEVELOPER_LOOP.md) and root AGENTS.md. The roo
 configuration retains all four required checks and adds the poison-floor current
 task plus optional low-cost AI settings. Audit reports are ignored and excluded
 under audit-reports/. Ordinary audit does not assess currentTask; use task with
-authorized live AI for requirements review. Loop limits live in the agent
+authorized `--ai codex` for subscription-based requirements review (or separately
+authorized `--ai live` for API review). Loop limits live in the agent
 instructions, not unsupported configuration keys.

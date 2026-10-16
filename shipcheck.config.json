@@ -73,7 +73,8 @@
     "apiKeyEnv": "SHIPCHECK_API_KEY",
     "mode": "low-cost",
     "maxOutputTokens": 2000,
-    "timeoutMs": 60000
+    "timeoutMs": 60000,
+    "codexTimeoutMs": 120000
   },
   "currentTask": {
     "id": "poison-floor",

@@ -16,9 +16,11 @@ an instruction to implement unrelated features.
 - Allow at most five edit/review cycles, at most 30 minutes, and stop after two
   comparable cycles without progress. These are instructions for the developer,
   not settings enforced by Shipcheck. Stop at whichever limit occurs first.
-- Use only an explicitly authorized, existing named API allowance shared across
-  all cycles. Configuration and these instructions do not authorize spending.
-  Without live authorization, perform offline work and report AI review pending.
+- Prefer `--ai codex` with an authorized ChatGPT-authenticated Codex CLI.
+  Never fall back to paid API calls when Codex fails or reaches a usage limit.
+  `--ai live` is optional and requires separate explicit API spending authorization
+  and an existing named allowance shared across all cycles. Without authorized
+  AI access, perform offline work and report AI review pending.
 - Do not weaken requirements, assertions, checks, exclusions, or thresholds to
   pass. Application/test edits are allowed within the user's task authorization;
   requirement or audit-policy changes require separate authorization.
