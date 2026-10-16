@@ -28,3 +28,7 @@ audit-reports/
 
 # Generated component workbench
 storybook-static/
+
+# Browser test output
+test-results/
+playwright-report/

@@ -20,7 +20,7 @@ A selected design is not a completed application milestone. Do not infer complet
 
 | ID | Outcome | Implementation status | Dependency or decision |
 | --- | --- | --- | --- |
-| M1 | Obsidian visual foundation and accessible player controls | Planned | Selected layout; approved implementation ticket needed |
+| M1 | Obsidian visual foundation and accessible player controls | In progress | `obsidian-frames` authorized; two-player foundation implemented locally, remaining validation and AI review pending |
 | M2 | Expandable local tables and configurable responsive layouts | Planned | Stable player identities; count safeguards above twelve |
 | M3 | Generic counters and commander-to-recipient tracking | Planned | Tracker defaults, bounds, and damage/life coupling |
 | M4 | Fast shared-device adjustments and accessible recovery | Planned | Gesture and undo decisions; real-device validation |
