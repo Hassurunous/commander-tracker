@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { updatePoison, type Player } from './poison';
-import { CounterControl } from './components/CounterControl';
+import { PlayerFrame } from './components/PlayerFrame';
 
 const LifeTracker: React.FC = () => {
     const [players, setPlayers] = useState<Player[]>([
@@ -10,9 +10,9 @@ const LifeTracker: React.FC = () => {
     ]);
 
     const changeLife = (index: number, delta: number) => {
-        const updated = [...players];
-        updated[index].life += delta;
-        setPlayers(updated);
+        setPlayers(current => current.map((player, playerIndex) =>
+            playerIndex === index ? { ...player, life: player.life + delta } : player
+        ));
     };
 
     const changePoison = (index: number, delta: number) => {
@@ -20,14 +20,8 @@ const LifeTracker: React.FC = () => {
     };
 
     return (
-        <div>
-            {players.map((player, index) => (
-                <div key={index}>
-                    <h3>{player.name}</h3>
-                    <CounterControl playerName={player.name} label="Life" value={player.life} onChange={delta => changeLife(index, delta)} />
-                    <CounterControl playerName={player.name} label="Poison" value={player.poison} onChange={delta => changePoison(index, delta)} />
-                </div>
-            ))}
+        <div className="player-board">
+            {players.map((player, index) => <PlayerFrame key={index} name={player.name} seat={index + 1} life={player.life} poison={player.poison} onLifeChange={delta => changeLife(index, delta)} onPoisonChange={delta => changePoison(index, delta)} />)}
         </div>
     );
 };

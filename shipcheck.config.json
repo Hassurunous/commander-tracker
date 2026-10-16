@@ -73,31 +73,76 @@
     "apiKeyEnv": "SHIPCHECK_API_KEY",
     "mode": "low-cost",
     "maxOutputTokens": 2000,
-    "timeoutMs": 60000
+    "timeoutMs": 60000,
+    "maxFiles": 24,
+    "maxContextBytes": 64000
   },
   "currentTask": {
-    "id": "poison-floor",
-    "title": "Prevent negative poison counters",
+    "id": "obsidian-frames",
+    "title": "Obsidian visual foundation with shared React components and Storybook",
     "files": [
+      "src/App.tsx",
+      "src/index.css",
       "src/LifeTracker.tsx",
-      "src/poison.ts"
+      "src/LifeTracker.test.tsx",
+      "src/components/CounterControl.tsx",
+      "src/components/CounterControl.stories.tsx",
+      "src/components/PlayerFrame.tsx",
+      "src/components/PlayerFrame.stories.tsx",
+      "src/components/TrackerEntry.tsx",
+      "src/components/TrackerEntry.stories.tsx",
+      "src/components/PoisonInspector.tsx",
+      "src/components/PoisonInspector.stories.tsx",
+      "src/LifeTracker.state.test.tsx",
+      "test/browser/obsidian.spec.mjs",
+      "playwright.config.mjs",
+      "src/test-fixtures/player-frame.tsx"
     ],
     "requirements": [
       {
-        "id": "floor",
-        "text": "Poison starts at zero. Decrementing poison at zero leaves it at zero, including repeated decrements."
+        "id": "baseline",
+        "text": "Retain two fixed players starting at 40 life and zero poison. Life permits negative values. Poison decrements stop at zero, including repeated decrements. Each activation adjusts only its identified player and value by one."
       },
       {
-        "id": "updates",
-        "text": "Increment adds one; decrement subtracts one from positive poison and stops at zero."
+        "id": "frames",
+        "text": "Use shared typed React components in the app and Storybook for bronze layered player frames, separate nameplates, dominant inset life displays, and stacked-layers tracker entry. Apply Obsidian semantic tokens. Keep explicit life buttons for this ticket."
       },
       {
-        "id": "isolation",
-        "text": "Only the selected player's poison changes. Other players and life totals remain unchanged. Life controls retain their existing behavior, including negative totals."
+        "id": "inspector",
+        "text": "Player-specific Trackers button opens a labeled modal poison inspector. Opening, closing, Escape and inspector controls never change life. Closing restores trigger focus; background controls cannot activate while modal is open. Poison values persist across close/reopen."
+      },
+      {
+        "id": "accessibility",
+        "text": "Use native controls with player-specific accessible names, visible keyboard focus and 48 by 48 CSS pixel minimum targets. Tracker glyph is 22px with at least 4px external target clearance. Text and essential boundaries target WCAG 2.2 AA contrast; support forced colors and reduced motion."
+      },
+      {
+        "id": "responsive",
+        "text": "Preserve legibility and access at 320px width and 200 percent text size, long names, negative and large life totals. Reflow and scroll instead of clipping or shrinking targets. No title bar or unimplemented menu options."
+      },
+      {
+        "id": "stories-tests",
+        "text": "Provide Storybook states for frames, tracker entry, inspector, long names, negative/large totals and narrow layouts. Preserve and strengthen rendered behavioral tests for isolation, poison floor and inspector opening, closing and focus return."
       }
     ],
     "nonGoals": [
-      "No persistence, reset, player-management, or unrelated life-handler changes."
+      "No four-player setup, player management, configurable layouts, Tabletop rotation, generic trackers, commander damage, quick life zones, gestures, undo, persistence or networking.",
+      "No central global menu until it exposes implemented table options. No dependency, audit-check or paid-review policy changes."
     ]
-  }
+  },
+  "resources": [
+    {
+      "id": "obsidian-css",
+      "path": "src/index.css",
+      "kind": "source",
+      "authority": "authoritative",
+      "required": true
+    },
+    {
+      "id": "obsidian-browser",
+      "path": "docs/OBSIDIAN_VALIDATION.md",
+      "kind": "document",
+      "authority": "supporting",
+      "required": true
+    }
+  ]
 }
