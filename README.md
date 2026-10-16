@@ -69,3 +69,6 @@ Contributions are welcome! If you’d like to add features, fix bugs, or expand 
 ### License
 
 This project is licensed under the MIT License. See LICENSE for details.
+## Development checks and agent workflow
+
+See [Shipcheck setup](docs/SHIPCHECK.md), [the bounded developer loop](docs/DEVELOPER_LOOP.md), and [agent instructions](AGENTS.md) for required checks, task review, API authorization and completion criteria.
