@@ -37,7 +37,7 @@ from Shipcheck inspection as well as Git. Never assume past API authorization
 applies to a new task. Budget initialization is a separate user-authorized action;
 use one allowance across cycles and never reset/refill it to bypass a limit.
 
-The checked-in currentTask describes the poison-floor ticket in this branch.
+The checked-in currentTask describes the active implementation ticket.
 It is real task context, not a universal template. Replace it with the next
 user-authorized ticket before beginning unrelated work. Do not change it mid-loop
 to obtain approval; an approved requirement change starts a new recorded baseline.

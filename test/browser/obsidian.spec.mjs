@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 
 test('native modal blocks background clicks, traps focus, and Escape restores the trigger', async ({ page }) => {
     await page.goto('/');
+    await page.getByRole('textbox', { name: 'Number of players' }).fill('2');
+    await page.getByRole('button', { name: 'Start table' }).click();
     const trigger = page.getByRole('button', { name: 'Trackers for Player 1' });
     const background = page.getByRole('button', { name: 'Increase life for Player 2' });
     const box = await background.boundingBox();
@@ -39,6 +41,8 @@ for (const fontSize of [100, 200]) {
     test(`320px layout at ${fontSize}% root text retains targets and reflows`, async ({ page }) => {
         await page.setViewportSize({ width: 320, height: 568 });
         await page.goto('/');
+    await page.getByRole('textbox', { name: 'Number of players' }).fill('2');
+    await page.getByRole('button', { name: 'Start table' }).click();
         // Root font scaling exercises rem text, unlike scaling only a story wrapper.
         await page.addStyleTag({ content: `html { font-size: ${fontSize}% !important; }` });
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
@@ -58,6 +62,8 @@ for (const fontSize of [100, 200]) {
 test('forced colors retains a visible keyboard focus outline', async ({ page }) => {
     await page.emulateMedia({ forcedColors: 'active', reducedMotion: 'reduce' });
     await page.goto('/');
+    await page.getByRole('textbox', { name: 'Number of players' }).fill('2');
+    await page.getByRole('button', { name: 'Start table' }).click();
     await page.keyboard.press('Tab');
     const focused = page.locator(':focus');
     await expect(focused).toHaveAttribute('aria-label', 'Trackers for Player 1');
@@ -96,6 +102,8 @@ async function contrastMeasurements(page, label) {
 
 test('rendered text, control edges, focus and tracker clearance meet the approved thresholds', async ({ page }) => {
     await page.goto('/');
+    await page.getByRole('textbox', { name: 'Number of players' }).fill('2');
+    await page.getByRole('button', { name: 'Start table' }).click();
     const measurements = [];
     const collect = async label => measurements.push(...await contrastMeasurements(page, label));
     await collect('default');
