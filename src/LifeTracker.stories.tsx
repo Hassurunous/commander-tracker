@@ -9,3 +9,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const TwoPlayers: Story = {};
+
+export const FourPlayers: Story = { args: { initialCount: 4 } };
+export const TwelvePlayers: Story = { args: { initialCount: 12 } };

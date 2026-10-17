@@ -4,7 +4,7 @@ Updated October 16, 2026. This is the home for intended functionality, open prod
 
 ## How to use this roadmap
 
-The owner has selected the product and layout direction below. Milestone order and packaging are proposed; no delivery dates or implementation tickets are committed. A roadmap entry is not authorization to implement it, change audit requirements, or spend on reviews. Before beginning a ticket, reconcile its approved requirements and non-goals with `shipcheck.config.json`; its existing `poison-floor` task is unchanged.
+The owner has selected the product and layout direction below. Milestone order and packaging are proposed; no delivery dates or implementation tickets are committed. A roadmap entry is not authorization to implement it, change audit requirements, or spend on reviews. Before beginning a ticket, reconcile its approved requirements and non-goals with `shipcheck.config.json`; the active ticket is `table-setup-identities`.
 
 Track implementation status separately from product decisions:
 
@@ -20,8 +20,8 @@ A selected design is not a completed application milestone. Do not infer complet
 
 | ID | Outcome | Implementation status | Dependency or decision |
 | --- | --- | --- | --- |
-| M1 | Obsidian visual foundation and accessible player controls | In progress | `obsidian-frames` authorized; two-player foundation implemented locally, remaining validation and AI review pending |
-| M2 | Expandable local tables and configurable responsive layouts | Planned | Stable player identities; count safeguards above twelve |
+| M1 | Obsidian visual foundation and accessible player controls | In progress | Foundation merged in PR #6; Codex review and browser checks passed. Physical-device/screen-reader validation or explicit acceptance remains outstanding. |
+| M2 | Expandable local tables and configurable responsive layouts | In progress | `table-setup-identities`: setup and stable IDs for 2–12 authorized. Responsive modes/paging remain a separate ticket; above-twelve safeguards deferred. |
 | M3 | Generic counters and commander-to-recipient tracking | Planned | Tracker defaults, bounds, and damage/life coupling |
 | M4 | Fast shared-device adjustments and accessible recovery | Planned | Gesture and undo decisions; real-device validation |
 | M5 | Connected personal phones operating the same game | Planned | Separate networking, identity, permissions, and recovery brief |
@@ -58,6 +58,30 @@ First agree joining, identity, edit permissions, ownership, persistence, and con
 | 2026-10-16 | Roadmap established and current functionality separated | [Current baseline](FUNCTIONALITY.md). Documentation only; no application milestone completed. |
 
 When a milestone completes, append a dated entry with its ID, delivered scope, ticket/PR or commit, check and device-validation evidence, and accepted limitations. Update its status above and move only delivered behavior into FUNCTIONALITY.md. Partial delivery remains in progress; record remaining criteria. Keep history rather than overwriting earlier completion entries. No milestone completion dates are assigned until supported by evidence.
+
+## Current implementation tickets
+
+- M1 foundation: [PR #6](https://github.com/Hassurunous/commander-tracker/pull/6),
+  commit `3ecf7e4`, merged in `4016f81`. The earlier claim that AI review was
+  pending is superseded: Codex task review returned proposed supporting evidence
+  for all six criteria with matched quotations, and subsequent Shipcheck 699df25
+  baseline review confirmed complete eligible-source and reference coverage.
+  Thirteen behavioral and seven browser tests, production integration and
+  Storybook build passed. Local evidence: `audit-reports/full-baseline-reconciled/`.
+  That general baseline was not a fresh M1 task acceptance. Physical-device and
+  screen-reader validation remains unverified; no full milestone closure claimed.
+- M2 first ticket: `table-setup-identities` (authorized October 16, 2026).
+  First-use count defaults to four; this ticket supports two through twelve,
+  stable player IDs and ordered seats, and preserves counter semantics. A simple
+  scrolling board is sufficient for this slice. Paging, Focus/portrait roster,
+  Pass-around/Tabletop selection and wider-table behavior remain undelivered.
+  Local implementation verified in two cycles: 65 behavioral/model tests, 12
+  browser tests, fresh production integration and Storybook build passed. Final
+  Codex task review supports all six criteria with matched evidence and no
+  candidates. Aggregate diagnostic-summary coverage remains flagged partial;
+  all selected source/reference paths have valid responses. See
+  `audit-reports/m2-table-setup/` for reports. This delivers the first ticket
+  locally; M2 stays in progress until the deferred responsive work is delivered.
 
 ## Intended functionality and product decisions
 
