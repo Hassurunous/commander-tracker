@@ -75,6 +75,18 @@ All four offline checks and fresh production/artifact integration passed again.
 PR #9 remains a draft; the exact pre-review 64,000-byte limit was restored.
 Reports: `audit-reports/m2-responsive-updated-shipcheck/`.
 
+The next owner-authorized rerun used Shipcheck's structured evidence selection
+update. All selected citations matched, and library/tests now has supporting
+evidence: the quotation blocker is resolved. Five requirements were supported;
+the board requirement was assessed as insufficient evidence for guarantees
+across sizing, targets and text scaling. No code defect was reported. The full
+21-test browser suite passed again; it explicitly checks four-up 844×390 geometry
+and narrow enlarged-text controls, but does not explicitly measure full-app
+enlarged landscape geometry. This assessment remains unresolved, so PR #9 stays
+a draft. All four offline checks and fresh production/artifact integration
+passed. The original 64,000-byte limit is restored. Reports:
+`audit-reports/m2-responsive-evidence-selection/`.
+
 ## Maintaining this baseline
 
 Update this document when an authorized ticket delivers verified behavior. Describe only the delivered portion, link its evidence from the roadmap completion log, and leave unfinished scope in the roadmap. A visual selection or prototype interaction does not change application status.

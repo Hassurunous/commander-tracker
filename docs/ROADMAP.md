@@ -136,6 +136,17 @@ Fresh offline checks and production/artifact integration passed. PR #9 remains
 a draft; the context limit is restored to 64,000. Reports:
 `audit-reports/m2-responsive-updated-shipcheck/`.
 
+A further owner-authorized rerun used the compiled structured evidence-selection
+update from the trusted Shipcheck working checkout. Every citation matched and
+library/tests is now supported. Codex reported no code defect, supporting five
+requirements, but assessed board geometry/targets/text scaling as insufficient
+evidence. Browser tests verify 844×390 four-up geometry and narrow enlarged-text
+controls; full-app enlarged landscape geometry is not explicitly measured.
+All 21 browser tests passed again, as did all four offline checks and fresh
+production/artifact integration. The board assessment is unresolved, so PR #9
+remains a draft. The context limit is restored to 64,000. Reports:
+`audit-reports/m2-responsive-evidence-selection/`.
+
 ## Intended functionality and product decisions
 
 The authorized `tabletop-mode` extension adds opposite-facing upper panels to
