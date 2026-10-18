@@ -1,6 +1,6 @@
 # Commander Tracker current functionality
 
-Updated October 16, 2026. This document records application behavior currently present in the repository. Intended features, open decisions, and milestone progress belong in [the product roadmap](ROADMAP.md). The [design references](DESIGN_DECISIONS.md) are demonstrations, not implemented feature evidence.
+Updated October 18, 2026. This document records application behavior currently present in the repository. Intended features, open decisions, and milestone progress belong in [the product roadmap](ROADMAP.md). The [design references](DESIGN_DECISIONS.md) are demonstrations, not implemented feature evidence.
 
 ## Implemented today
 
@@ -20,15 +20,31 @@ longer pending for that delivery. Physical-phone and screen-reader validation
 remain unverified. The baseline is not a substitute for formal milestone closure.
 
 The local `table-setup-identities` ticket adds the count form and stable IDs.
-It retains the existing board layout with normal scrolling for larger tables.
-There is no in-session add/remove/rename/reset flow, configurable layout menu,
-paging, portrait roster, generic tracking, commander damage, undo, motion
+That first ticket is merged in PR #8. The local `responsive-board-focus` ticket now adds a space-aware two-/four-seat board with paging, or a selected editor and full roster in Focus. A modal Table menu exposes Pass-around/Focus and Auto/2/4 preferences, retained through automatic fallbacks.
+There is no in-session add/remove/rename/reset flow, six-up presentation, generic tracking, commander damage, undo, motion
 interaction, persistence, or synchronized play. M2 remains in progress; inspect
-`audit-reports/m2-table-setup/` for current verification rather than inferring
+`audit-reports/m2-responsive/` for current verification rather than inferring
 completion from these implementation notes.
+
+The responsive ticket passed the four offline checks (71 behavioral tests), 18
+browser tests, production build/artifact integration, and Storybook build. Codex
+review could not start because Shipcheck reported `spawn EPERM`; AI review and
+the completion gate remain pending. The temporary AI context limit was restored.
+
+The local `tabletop-mode` extension adds Tabletop to the same menu. Four-seat
+pages rotate the upper two panels 180 degrees; two-seat pages stack vertically
+with the upper panel rotated. Controls face their seated player, while modal
+inspectors and the table menu remain upright. Narrow/short displays use upright
+Focus and retain the Tabletop preference. Validation is recorded under
+`audit-reports/m2-tabletop/`; this extension does not close M2.
+The Tabletop completion gate passed on October 18: all four Shipcheck checks,
+73 behavioral tests, 21 browser tests, fresh production/artifact integration and
+Storybook build. Codex returned fresh matched supporting evidence for all four
+Tabletop requirements and no general candidates. The earlier responsive ticket
+has not received a separate final requirements review.
 
 ## Maintaining this baseline
 
 Update this document when an authorized ticket delivers verified behavior. Describe only the delivered portion, link its evidence from the roadmap completion log, and leave unfinished scope in the roadmap. A visual selection or prototype interaction does not change application status.
 
-The current `shipcheck.config.json` ticket is `table-setup-identities`. Follow [the developer loop](DEVELOPER_LOOP.md) and [Shipcheck requirements](SHIPCHECK.md) for implementation and verification; this documentation change does not satisfy an application completion gate.
+The current `shipcheck.config.json` ticket is `tabletop-mode`. Follow [the developer loop](DEVELOPER_LOOP.md) and [Shipcheck requirements](SHIPCHECK.md) for implementation and verification; this documentation change does not satisfy an application completion gate.

@@ -79,54 +79,39 @@
     "codexTimeoutMs": 120000
   },
   "currentTask": {
-    "id": "table-setup-identities",
-    "title": "M2 first ticket: local table setup for two through twelve players with stable identities",
+    "id": "tabletop-mode",
+    "title": "M2 Tabletop mode with opposite-facing top row",
     "files": [
-      "src/App.tsx",
-      "src/App.test.tsx",
-      "src/table.ts",
-      "src/table.test.ts",
-      "src/poison.ts",
       "src/LifeTracker.tsx",
-      "src/LifeTracker.test.tsx",
-      "src/LifeTracker.state.test.tsx",
-      "src/components/TableSetup.tsx",
-      "src/components/TableSetup.stories.tsx",
+      "src/layout.ts",
+      "src/layout.test.ts",
+      "src/components/TableMenu.tsx",
       "src/LifeTracker.stories.tsx",
-      "src/components/PlayerFrame.tsx",
+      "src/LifeTracker.responsive.test.tsx",
       "src/index.css",
-      "test/browser/obsidian.spec.mjs",
-      "test/browser/table-setup.spec.mjs"
+      "test/browser/tabletop.spec.mjs"
     ],
     "requirements": [
       {
-        "id": "setup",
-        "text": "Application first renders an accessible new-table form defaulting to four players. Starting any whole count from two through twelve creates exactly that many players, named and seated in order, each at 40 life and zero poison."
+        "id": "orientation",
+        "text": "Add Tabletop alongside Pass-around and Focus. Four-seat boards rotate the entire top two player panels 180 degrees, bottom panels remain upright; preserve seat order. Two-seat Tabletop uses one column/two rows with only upper panel rotated; reserve adequate height or fall back to Focus. Keep inward name/tracker bands and clear central menu pocket. Controls remain minus-left/plus-right from each seated player perspective, with 48px targets."
       },
       {
-        "id": "validation",
-        "text": "Reject empty input, fractions, non-finite values, unsafe integers, counts below two and above twelve before allocation. Show a visible accessible inline error and retain the input for correction. Two-through-twelve is this ticket scope, not a permanent product ceiling."
+        "id": "state",
+        "text": "Mode changes, paging and viewport/density changes preserve stable identities, seat order, life and poison. Keep existing contiguous paging and anchor page when switching Pass-around/Tabletop. In automatic narrow/short-screen Focus, keep Tabletop preference and return to rotated board when space permits. Explicit Focus remains upright."
       },
       {
-        "id": "identity",
-        "text": "Assign each player a distinct stable ID and seat on table creation. Use IDs for React keys and targeted updates, not names or array positions. Keep IDs, seat order and values stable through rerenders, inspector open/close and viewport changes."
-      },
-      {
-        "id": "behavior",
-        "text": "Keep decrement left and increment right. Each activation changes only the intended player value by one. Preserve negative life, poison floor at zero, modal focus behavior, and all queued updates; twelve-player overflow must scroll without shrinking targets."
-      },
-      {
-        "id": "components",
-        "text": "Use shared typed custom React components and Storybook stories for the setup form and representative two-, four- and twelve-player tables. Maintain visible focus, accessible input and control names, minimum 48px targets, narrow layouts and readable enlarged text."
+        "id": "interaction",
+        "text": "Table menu exposes Tabletop, remains modal during changes, Escape/Done restores focus. Rotated life and tracker controls operate the correct player; poison inspector and global menu remain upright, reachable and keyboard usable. Opening menu or switching views never adjusts counters."
       },
       {
         "id": "coverage",
-        "text": "Preserve existing behavioral assertions, adding model, rendered setup and browser regression coverage for valid/invalid counts, unique/stable identities, Player 12 isolation and resize preservation. Keep layout mode selection and paging for the next ticket."
+        "text": "Use existing shared React components without new dependencies. Add Storybook Tabletop examples for two/four players and paging; tests verify orientation, responsive fallback, state preservation, menu/modal focus and rotated controls in a real browser. Preserve existing checks and behavioral suite."
       }
     ],
     "nonGoals": [
-      "No counts above twelve, in-session player addition/removal/renaming, reset/replacement of an active game, configurable layouts, paging, portrait roster/selected editor, or Tabletop rotation.",
-      "No persistence, generic trackers, commander damage, undo, gestures, networking, dependency additions or audit-policy changes."
+      "No six-up density, gestures, undo, persistence, networking or player management. No unrelated new features or audit-policy changes.",
+      "This ticket adds Tabletop to the existing uncommitted responsive implementation; prior responsive Codex review is pending. Do not claim physical-device or screen-reader validation."
     ]
   },
   "resources": [

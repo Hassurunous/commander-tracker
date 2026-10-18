@@ -4,7 +4,7 @@ Updated October 16, 2026. This is the home for intended functionality, open prod
 
 ## How to use this roadmap
 
-The owner has selected the product and layout direction below. Milestone order and packaging are proposed; no delivery dates or implementation tickets are committed. A roadmap entry is not authorization to implement it, change audit requirements, or spend on reviews. Before beginning a ticket, reconcile its approved requirements and non-goals with `shipcheck.config.json`; the active ticket is `table-setup-identities`.
+The owner has selected the product and layout direction below. Milestone order and packaging are proposed; no delivery dates or implementation tickets are committed. A roadmap entry is not authorization to implement it, change audit requirements, or spend on reviews. Before beginning a ticket, reconcile its approved requirements and non-goals with `shipcheck.config.json`; the active ticket is `tabletop-mode`.
 
 Track implementation status separately from product decisions:
 
@@ -21,7 +21,7 @@ A selected design is not a completed application milestone. Do not infer complet
 | ID | Outcome | Implementation status | Dependency or decision |
 | --- | --- | --- | --- |
 | M1 | Obsidian visual foundation and accessible player controls | In progress | Foundation merged in PR #6; Codex review and browser checks passed. Physical-device/screen-reader validation or explicit acceptance remains outstanding. |
-| M2 | Expandable local tables and configurable responsive layouts | In progress | `table-setup-identities`: setup and stable IDs for 2–12 authorized. Responsive modes/paging remain a separate ticket; above-twelve safeguards deferred. |
+| M2 | Expandable local tables and configurable responsive layouts | In progress | Setup/stable IDs merged in PR #8. `responsive-board-focus` is implementing Pass-around, paging and Focus. Tabletop is being added in `tabletop-mode`; above-twelve safeguards remain deferred. |
 | M3 | Generic counters and commander-to-recipient tracking | Planned | Tracker defaults, bounds, and damage/life coupling |
 | M4 | Fast shared-device adjustments and accessible recovery | Planned | Gesture and undo decisions; real-device validation |
 | M5 | Connected personal phones operating the same game | Planned | Separate networking, identity, permissions, and recovery brief |
@@ -83,7 +83,39 @@ When a milestone completes, append a dated entry with its ID, delivered scope, t
   `audit-reports/m2-table-setup/` for reports. This delivers the first ticket
   locally; M2 stays in progress until the deferred responsive work is delivered.
 
+## Responsive board ticket (October 18, 2026)
+
+The first M2 ticket is merged in [PR #8](https://github.com/Hassurunous/commander-tracker/pull/8)
+(merge `f07aa45`). Current work is `responsive-board-focus`: a two-/four-seat
+upright board, stable contiguous paging, a Focus editor and roster, and a modal
+Table menu exposing only Pass-around/Focus and Auto/2/4 preferences. Layout uses
+available width/height and root text scaling, reserving space for page/menu
+controls. Four-up is intended at 844×390 for four players; tables requiring page
+controls may use two-up at that height and four-up on taller landscape displays.
+Presentation changes retain player state and the group containing the anchor seat.
+Tabletop rotation, six-up density, quick life zones and persistence remain separate.
+Validation evidence is recorded under `audit-reports/m2-responsive/`; this ticket
+does not claim physical-device or screen-reader validation or full M2 closure.
+All four offline checks (71 behavioral tests), 18 browser tests, the fresh
+production build/artifact test, and Storybook build passed. Shipcheck's Codex
+review failed to start with `spawn EPERM` and produced no AI report. The loop
+stopped on that operational failure; AI review and ticket completion remain
+pending. The approved temporary 96,000-byte context limit was restored to 64,000.
+
 ## Intended functionality and product decisions
+
+The authorized `tabletop-mode` extension adds opposite-facing upper panels to
+the responsive board: two rotated panels on four-seat pages, or one upper panel
+on vertically stacked two-seat pages. Paging, player values and responsive Focus
+fallback are preserved. Storybook includes two-seat, four-seat and paged examples.
+See `audit-reports/m2-tabletop/` for this ticket's validation; earlier responsive
+review status above is historical and is not a review of this extension.
+Tabletop is ready for human review locally (October 18): all four offline checks,
+73 behavioral tests, 21 browser tests, production/artifact integration and
+Storybook build passed. Codex assessed all four Tabletop requirements with fresh
+matched supporting evidence and no general candidates. No limits changed or API
+calls were used. This does not close the earlier responsive ticket's separate
+requirements review or M2.
 
 **Selected direction** records owner preferences. **Proposed detail** awaits adoption into an approved ticket. **Unresolved** requires a product decision before dependent work. The sections below retain those distinctions; milestone placement does not approve every proposal.
 
