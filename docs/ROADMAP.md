@@ -126,6 +126,16 @@ integration passed. The five-cycle limit is reached; PR #9 stays a draft pending
 a matched library/tests assessment or explicit owner acceptance. Context is
 restored to 64,000. Reports: `audit-reports/m2-responsive-cycle5/`.
 
+After the owner reported a Shipcheck fix, an additional review used updated build
+`3edc8c6` (redundant context escaping removed; exact matching retained). Codex
+completed with five matched supporting assessments and no code concerns. The
+remaining library/tests assessment was downgraded because its quotation omitted
+a closing brace from the valid `TabletopTwo` story. This run does not establish
+regex quoting behavior because no regex was cited in the rejected evidence.
+Fresh offline checks and production/artifact integration passed. PR #9 remains
+a draft; the context limit is restored to 64,000. Reports:
+`audit-reports/m2-responsive-updated-shipcheck/`.
+
 ## Intended functionality and product decisions
 
 The authorized `tabletop-mode` extension adds opposite-facing upper panels to

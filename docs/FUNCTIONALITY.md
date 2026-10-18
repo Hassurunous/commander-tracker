@@ -66,6 +66,15 @@ owner acceptance. Fresh offline checks (73 tests) and production/artifact
 integration passed again. The context limit is restored to 64,000. Investigation
 and reports: `audit-reports/m2-responsive-cycle5/`.
 
+The owner requested another review after Shipcheck update `3edc8c6` removed
+redundant Codex context escaping. That run completed with no code concerns and
+five fresh matched supporting assessments. Library/tests was still downgraded:
+Codex omitted the outer closing brace when quoting the valid `TabletopTwo`
+Storybook example. This is a different quotation error, not a regex mismatch.
+All four offline checks and fresh production/artifact integration passed again.
+PR #9 remains a draft; the exact pre-review 64,000-byte limit was restored.
+Reports: `audit-reports/m2-responsive-updated-shipcheck/`.
+
 ## Maintaining this baseline
 
 Update this document when an authorized ticket delivers verified behavior. Describe only the delivered portion, link its evidence from the roadmap completion log, and leave unfinished scope in the roadmap. A visual selection or prototype interaction does not change application status.
