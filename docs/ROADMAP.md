@@ -114,6 +114,18 @@ The active ticket is again `responsive-board-focus`, reconciled with the
 separately-authorized Tabletop menu option. The context limit is restored to
 64,000; no API calls were used. Reports: `audit-reports/m2-responsive-resume/`.
 
+The owner authorized cycle five to investigate the invalid assessment and retry.
+The Shipcheck decoder rejects missing/duplicate assessments or unknown primary
+or related IDs; the prior raw response was not preserved, so its exact bad field
+cannot be established. The new run completed with all six valid IDs, no code
+concerns, and proposed supporting evidence for all six requirements. Five passed
+quotation verification; library/tests was downgraded because Codex over-escaped
+a regex when quoting browser-test source. No source defect was confirmed or
+application edit made. Fresh offline checks (73 tests) and production/artifact
+integration passed. The five-cycle limit is reached; PR #9 stays a draft pending
+a matched library/tests assessment or explicit owner acceptance. Context is
+restored to 64,000. Reports: `audit-reports/m2-responsive-cycle5/`.
+
 ## Intended functionality and product decisions
 
 The authorized `tabletop-mode` extension adds opposite-facing upper panels to
