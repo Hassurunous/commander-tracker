@@ -27,6 +27,10 @@ an instruction to implement unrelated features.
 - Inspect reports, not only exit codes. Verify every required check ran, review
   AI candidates and task assessments, and disclose incomplete coverage. Citation
   matches prove quotations exist, not that a diagnosis is correct.
+- Keep routine summaries focused on actionable findings and material coverage
+  gaps. PNG text-inspection omissions are not tests and need not be repeated.
+  Do not repeat harmless successful-log truncation as a test limitation; retain
+  raw reports and never misstate their coverage labels.
 - Investigate AI claims before editing. Record counterevidence for incorrect
   claims; ask the user about ambiguous, disputed or out-of-scope issues.
 - Shipcheck audits only. The developer owns source edits and may not merge,

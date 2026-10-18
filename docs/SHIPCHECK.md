@@ -37,7 +37,7 @@ The poison updater also has focused unit tests for zero boundaries, positive inc
 ## Developer-agent workflow
 
 Read [the bounded developer loop](DEVELOPER_LOOP.md) and root AGENTS.md. The root
-configuration retains all four required checks and adds the poison-floor current
+configuration retains all four required checks and records the active current
 task plus optional low-cost AI settings. Audit reports are ignored and excluded
 under audit-reports/. Ordinary audit does not assess currentTask; use task with
 authorized `--ai codex` for subscription-based requirements review (or separately

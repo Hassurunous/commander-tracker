@@ -37,7 +37,7 @@ from Shipcheck inspection as well as Git. Never assume past API authorization
 applies to a new task. Budget initialization is a separate user-authorized action;
 use one allowance across cycles and never reset/refill it to bypass a limit.
 
-The checked-in currentTask describes the poison-floor ticket in this branch.
+The checked-in currentTask describes the active implementation ticket.
 It is real task context, not a universal template. Replace it with the next
 user-authorized ticket before beginning unrelated work. Do not change it mid-loop
 to obtain approval; an approved requirement change starts a new recorded baseline.
@@ -99,8 +99,12 @@ choice. Preserve useful partial results; do not label them successful.
   Disputed observations need an owner decision. A correct quotation alone does
   not establish the claimed behavior.
 - Intended source coverage is present, and any remaining gaps are explicitly
-  accepted by the owner. PNG binary-inspection warnings are expected for this
-  repository, not proof that icons were audited. Keep those warnings visible.
+  accepted by the owner. Binary asset text-inspection notices are not tests;
+  retain them in raw reports but omit them from routine PR/chat summaries unless
+  the ticket explicitly requires image-content validation. Likewise, ordinary
+  successful-run log truncation may be omitted from human summaries when check
+  statuses and selected source evidence are present. Preserve the raw report's
+  coverage labels; disclose material missing evidence, redaction or failed checks.
 - `npm run test:integration` passed, producing a fresh build before checking its
   manifest icons. Stale `dist` output is insufficient.
 - No source, requirements or audit configuration changed after the final relevant

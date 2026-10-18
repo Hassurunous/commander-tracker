@@ -79,55 +79,54 @@
     "codexTimeoutMs": 120000
   },
   "currentTask": {
-    "id": "obsidian-frames",
-    "title": "Obsidian visual foundation with shared React components and Storybook",
+    "id": "table-setup-identities",
+    "title": "M2 first ticket: local table setup for two through twelve players with stable identities",
     "files": [
       "src/App.tsx",
-      "src/index.css",
+      "src/App.test.tsx",
+      "src/table.ts",
+      "src/table.test.ts",
+      "src/poison.ts",
       "src/LifeTracker.tsx",
       "src/LifeTracker.test.tsx",
-      "src/components/CounterControl.tsx",
-      "src/components/CounterControl.stories.tsx",
-      "src/components/PlayerFrame.tsx",
-      "src/components/PlayerFrame.stories.tsx",
-      "src/components/TrackerEntry.tsx",
-      "src/components/TrackerEntry.stories.tsx",
-      "src/components/PoisonInspector.tsx",
-      "src/components/PoisonInspector.stories.tsx",
       "src/LifeTracker.state.test.tsx",
+      "src/components/TableSetup.tsx",
+      "src/components/TableSetup.stories.tsx",
+      "src/LifeTracker.stories.tsx",
+      "src/components/PlayerFrame.tsx",
+      "src/index.css",
       "test/browser/obsidian.spec.mjs",
-      "playwright.config.mjs",
-      "src/test-fixtures/player-frame.tsx"
+      "test/browser/table-setup.spec.mjs"
     ],
     "requirements": [
       {
-        "id": "baseline",
-        "text": "Retain two fixed players starting at 40 life and zero poison. Life permits negative values. Poison decrements stop at zero, including repeated decrements. Each activation adjusts only its identified player and value by one."
+        "id": "setup",
+        "text": "Application first renders an accessible new-table form defaulting to four players. Starting any whole count from two through twelve creates exactly that many players, named and seated in order, each at 40 life and zero poison."
       },
       {
-        "id": "frames",
-        "text": "Use shared typed React components in the app and Storybook for bronze layered player frames, separate nameplates, dominant inset life displays, and stacked-layers tracker entry. Apply Obsidian semantic tokens. Keep explicit life buttons for this ticket."
+        "id": "validation",
+        "text": "Reject empty input, fractions, non-finite values, unsafe integers, counts below two and above twelve before allocation. Show a visible accessible inline error and retain the input for correction. Two-through-twelve is this ticket scope, not a permanent product ceiling."
       },
       {
-        "id": "inspector",
-        "text": "Player-specific Trackers button opens a labeled modal poison inspector. Opening, closing, Escape and inspector controls never change life. Closing restores trigger focus; background controls cannot activate while modal is open. Poison values persist across close/reopen."
+        "id": "identity",
+        "text": "Assign each player a distinct stable ID and seat on table creation. Use IDs for React keys and targeted updates, not names or array positions. Keep IDs, seat order and values stable through rerenders, inspector open/close and viewport changes."
       },
       {
-        "id": "accessibility",
-        "text": "Use native controls with player-specific accessible names, visible keyboard focus and 48 by 48 CSS pixel minimum targets. Tracker glyph is 22px with at least 4px external target clearance. Text and essential boundaries target WCAG 2.2 AA contrast; support forced colors and reduced motion."
+        "id": "behavior",
+        "text": "Keep decrement left and increment right. Each activation changes only the intended player value by one. Preserve negative life, poison floor at zero, modal focus behavior, and all queued updates; twelve-player overflow must scroll without shrinking targets."
       },
       {
-        "id": "responsive",
-        "text": "Preserve legibility and access at 320px width and 200 percent text size, long names, negative and large life totals. Reflow and scroll instead of clipping or shrinking targets. No title bar or unimplemented menu options."
+        "id": "components",
+        "text": "Use shared typed custom React components and Storybook stories for the setup form and representative two-, four- and twelve-player tables. Maintain visible focus, accessible input and control names, minimum 48px targets, narrow layouts and readable enlarged text."
       },
       {
-        "id": "stories-tests",
-        "text": "Provide Storybook states for frames, tracker entry, inspector, long names, negative/large totals and narrow layouts. Preserve and strengthen rendered behavioral tests for isolation, poison floor and inspector opening, closing and focus return."
+        "id": "coverage",
+        "text": "Preserve existing behavioral assertions, adding model, rendered setup and browser regression coverage for valid/invalid counts, unique/stable identities, Player 12 isolation and resize preservation. Keep layout mode selection and paging for the next ticket."
       }
     ],
     "nonGoals": [
-      "No four-player setup, player management, configurable layouts, Tabletop rotation, generic trackers, commander damage, quick life zones, gestures, undo, persistence or networking.",
-      "No central global menu until it exposes implemented table options. No dependency, audit-check or paid-review policy changes."
+      "No counts above twelve, in-session player addition/removal/renaming, reset/replacement of an active game, configurable layouts, paging, portrait roster/selected editor, or Tabletop rotation.",
+      "No persistence, generic trackers, commander damage, undo, gestures, networking, dependency additions or audit-policy changes."
     ]
   },
   "resources": [

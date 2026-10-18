@@ -4,6 +4,14 @@ See [current functionality](FUNCTIONALITY.md) for implemented behavior and [the 
 
 Version 6, October 16, 2026. Audience: product owner and developer agents. **The owner selected the current layout as the desired layout for now.** [DESIGN_DECISIONS.md](DESIGN_DECISIONS.md) records the selected references and the boundaries of that decision. Obsidian Arena remains the visual direction, with closely packed player cards, a central app-icon menu, inward-facing name/tracker sections, and padded stacked-layers tracker buttons. [DESIGN_INTERACTIONS.md](DESIGN_INTERACTIONS.md) specifies the interaction contracts.
 
+Implementation status note (October 16, 2026): the M1 visual foundation has since
+been merged in PR #6 and reviewed with Codex and browser/build checks. Current
+work is the authorized `table-setup-identities` M2 ticket. The design-only and
+`poison-floor` wording below records this specification's original handoff;
+current authorization and implemented behavior are defined by currentTask,
+FUNCTIONALITY.md and ROADMAP.md. Unimplemented gestures/layout/network proposals
+remain proposals, and physical-device/screen-reader validation is still pending.
+
 ## Authority and scope
 
 **Required** denotes an owner-selected direction or a concrete criterion for a future ticket based on this specification. **Proposed** denotes a designer recommendation that needs inclusion in an approved ticket before implementation. **Flexible** denotes an implementation choice within the stated constraints. **Unresolved** denotes a product decision that must not be guessed by a developer.

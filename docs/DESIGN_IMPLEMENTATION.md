@@ -6,6 +6,19 @@ The owner has selected the current layout as the desired design for now. Start w
 
 Milestone IDs M1–M5 and progress are tracked in [the product roadmap](ROADMAP.md). This brief provides candidate ticket details; keep completion history in the roadmap and delivered behavior in [current functionality](FUNCTIONALITY.md).
 
+## Implementation status (October 16, 2026)
+
+The M1 two-player visual foundation is merged in PR #6, including shared React
+components and Storybook. Codex review and browser/build checks have completed;
+physical-device and screen-reader validation remains unverified. Earlier
+"documentation only" validation notes below describe the design handoff, not
+the current application state. See FUNCTIONALITY.md and ROADMAP.md for progress.
+
+The authorized M2 ticket is `table-setup-identities`: first-use setup for 2–12
+players, default four, with stable IDs and preserved counter semantics. Phase
+two's layout selector, Focus roster, Tabletop and paging proposals are a separate
+follow-up ticket. Counts above twelve are deferred, not a permanent ceiling.
+
 ## Reading order and decision precedence
 
 Read root AGENTS.md, docs/SHIPCHECK.md, docs/DEVELOPER_LOOP.md, FUNCTIONALITY.md, ROADMAP.md, DESIGN_SPEC.md, DESIGN_INTERACTIONS.md, DESIGN_TOKENS.json, then the approved ticket. DESIGN_DISCOVERY.md preserves source observations and the original alternatives. The owner selected Obsidian Arena with stronger frame detailing, shared-device operation, four players by default, core support for two through twelve, eventual personal-phone access, extensible trackers, quick life interactions, and landscape-first configurable layouts. Carbon is an interaction reference, not a visual one. New UI interaction details are designer proposals until adopted into a ticket.
