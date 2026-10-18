@@ -140,3 +140,29 @@ Source SHA-256 identities at browser/Storybook execution:
 - test/browser/responsive.spec.mjs: 01bbfd5c90f22d04633e1dd458fbc746adc66eb1c6ea600b41660c531af1baee
 - test/browser/table-setup.spec.mjs: 587513226af5a4d792c3fa2e49fe219b789e46762ebb4f82c96d8e69485dac1b
 - test/browser/tabletop.spec.mjs: 4e0d12e34d5087452528e5362949605cfe9596c44c00d4cdb982d20591e70b07
+
+## Board sizing and text-scaling follow-up — October 18, 2026
+
+Owner-authorized coverage work retained all six responsive requirements and strengthened the actual application browser tests. `npm run test:browser` passed all 34 tests in 29.7 seconds, exit 0. Raw log: `audit-reports/m2-board-coverage/browser-complete.log`. Fresh production build/artifact integration and Storybook build both passed (exit 0).
+
+The geometry matrix executes all 60 combinations of 2/4/6/12 players, 100%/150%/200% root text and these five viewports: 1120×900, 844×390, 736×360, 390×844 and 320×568. It measures actual rendered player panels, control bounds, glyph bounds and menu/pager positions. Expected densities are asserted, not inferred from the layout function:
+
+| Viewport | 100% | 150% | 200% |
+| --- | --- | --- | --- |
+| 1120×900 | Two seats for two players; otherwise four | Same | Same |
+| 844×390 | Four seats for four players; otherwise two | Two seats for two players; otherwise Focus | Focus |
+| 736×360 | Two seats | Focus | Focus |
+| 390×844 and 320×568 | Focus | Focus | Focus |
+
+Every board case checks panel width at least 240×text scale and height at least 168×text scale; panels and menu/pager fit within viewport height. All visible player buttons remain at least 48×48 and inside their panels; minus precedes plus horizontally; nameplate/well positions face inward on four-up. Player names and life glyphs fit their containing band/well, and the page has no horizontal overflow. Focus cases verify the roster and reachable life control without shrinking its 48px target. Existing enlarged narrow-screen tests additionally exercise tracker controls for both players through roster navigation.
+
+A separate regression enlarges root text from 100% to 200% at 844×390 without resizing the window, asserts automatic Focus with the edited life value retained, then restores 100% and asserts four-up with the same edit. This initially failed: a fixed-size board/root box did not notify ResizeObserver of the font change. The hook now observes a hidden rem-sized probe, and removes it on cleanup. The regression and complete suite passed after that fix.
+
+Source SHA-256 identities at execution:
+
+- src/useTableSpace.ts: f26143b139c93bcef290f443543d03884423fa04d8d8a8714690baaff526af47
+- src/layout.ts: 0860cacf844a35f522a18adc818b24d28b8c261e714fa28ebbe2cdda30c5b9e5
+- src/LifeTracker.tsx: 33b62feb6d78720483c471c6c85cc9d083917d77a96a28feede01dc85456c5ec
+- src/index.css: 90a45ef13f77caf277ea9207f6366159dd4c276a1455071619356b8c42c7f4a5
+- test/browser/responsive.spec.mjs: a64c10b3ae1e2b06412f0972d3f009031d23c2df25ecb842d93ee08105c3ff1b
+- test/browser/obsidian.spec.mjs: d70fcda9b98bc268a866d0fcb81dd38e474deafa825eb09ebd2871c3ef5951bc

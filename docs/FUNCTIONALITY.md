@@ -87,6 +87,20 @@ a draft. All four offline checks and fresh production/artifact integration
 passed. The original 64,000-byte limit is restored. Reports:
 `audit-reports/m2-responsive-evidence-selection/`.
 
+The board coverage follow-up resolves the remaining review gap. Twelve browser
+matrix tests measure 60 combinations of 2/4/6/12 players, 100%/150%/200% text and
+five viewport sizes; a separate live text-resize regression found and verified a
+fix for missing fit recalculations when root font size changes without a window
+resize. A hidden rem-sized probe now triggers remeasurement and is cleaned up
+on unmount. The full 34-test browser suite, all four offline checks (73 behavioral
+tests), fresh production/artifact integration and Storybook build passed.
+Final Codex review supports all six responsive requirements with fresh matched
+evidence and no code concerns. PR #9 is ready for human review. The owner-approved
+temporary 128,000-byte review context was restored to 64,000; file-count limits
+and thresholds are unchanged. Reports: `audit-reports/m2-board-coverage/`.
+This supersedes the earlier responsive review blockers above and does not claim
+physical-device or screen-reader validation or full M2 closure.
+
 ## Maintaining this baseline
 
 Update this document when an authorized ticket delivers verified behavior. Describe only the delivered portion, link its evidence from the roadmap completion log, and leave unfinished scope in the roadmap. A visual selection or prototype interaction does not change application status.

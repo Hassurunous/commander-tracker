@@ -147,6 +147,21 @@ production/artifact integration. The board assessment is unresolved, so PR #9
 remains a draft. The context limit is restored to 64,000. Reports:
 `audit-reports/m2-responsive-evidence-selection/`.
 
+**Responsive board/paging/Focus review completed:** the owner-authorized coverage
+follow-up adds 60 measured browser geometry cases (2/4/6/12 players × three text
+sizes × five viewports) plus a live font-size regression. It fixes a confirmed
+failure to recalculate fit when enlarged text leaves the root/board box sizes
+unchanged, using a cleaned-up rem-sized ResizeObserver probe. The older tracker
+geometry test now waits for Focus and checks both players via the roster.
+All 34 browser tests, 73 behavioral tests, lint, both TypeScript checks, fresh
+production/artifact integration and Storybook build passed. Final Codex review
+supports all six responsive requirements with fresh matched evidence and no
+general candidates. PR #9 is ready for human review; previous blockers above
+are historical. The explicitly approved temporary 128,000-byte context is restored
+to 64,000, with no threshold changes or API calls. Reports:
+`audit-reports/m2-board-coverage/`. Physical-device/screen-reader validation and
+remaining M2 features are still separate.
+
 ## Intended functionality and product decisions
 
 The authorized `tabletop-mode` extension adds opposite-facing upper panels to

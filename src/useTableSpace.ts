@@ -15,9 +15,16 @@ export function useTableSpace(ref: RefObject<HTMLElement>): TableSpace {
         };
         measure(); window.addEventListener('resize', measure);
         const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null;
+        // Root font changes need not resize a fixed-height board or the root box.
+        // Observe a rem-sized probe so enlarged text triggers a fresh fit decision.
+        const textProbe = document.createElement('span');
+        textProbe.setAttribute('aria-hidden', 'true');
+        textProbe.style.cssText = 'position:absolute;top:0;left:0;width:1rem;height:1rem;visibility:hidden;pointer-events:none';
+        document.body.appendChild(textProbe);
+        observer?.observe(textProbe);
         if (ref.current) observer?.observe(ref.current);
         observer?.observe(document.documentElement);
-        return () => { window.removeEventListener('resize', measure); observer?.disconnect(); };
+        return () => { window.removeEventListener('resize', measure); observer?.disconnect(); textProbe.remove(); };
     }, [ref]);
     return space;
 }

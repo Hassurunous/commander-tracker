@@ -10,6 +10,87 @@ async function preferences(page, mode, density) {
     if (density) await page.getByRole('combobox', { name: 'Visible seats' }).selectOption(density);
     await page.getByRole('button', { name: 'Done' }).click();
 }
+// Exercise the real application at root text sizes, not only layout arithmetic
+// or the isolated PlayerFrame fixture. Never shrink targets to make a board fit.
+for (const count of [2, 4, 6, 12]) for (const percent of [100, 150, 200]) {
+    test(`${count} players retain board geometry and reachable controls at ${percent}% text`, async ({ page }) => {
+        await page.setViewportSize({ width: 1120, height: 900 }); await page.goto('/');
+        await page.addStyleTag({ content: `html { font-size: ${percent}% !important; }` });
+        await page.getByRole('textbox', { name: 'Number of players' }).fill(String(count));
+        await page.getByRole('button', { name: 'Start table' }).click();
+        const cases = [
+            { width: 1120, height: 900, density: count === 2 ? 2 : 4 },
+            { width: 844, height: 390, density: percent === 100 ? (count === 4 ? 4 : 2) : (percent === 150 && count === 2 ? 2 : 0) },
+            { width: 736, height: 360, density: percent === 100 ? 2 : 0 },
+            { width: 390, height: 844, density: 0 },
+            { width: 320, height: 568, density: 0 },
+        ];
+        for (const size of cases) {
+            await page.setViewportSize({ width: size.width, height: size.height });
+            const board = page.locator('.responsive-board-grid');
+            if (size.density) {
+                await expect(board).toHaveAttribute('data-density', String(size.density));
+                // A resize can retain the same density while its height changes.
+                await expect.poll(async () => (await board.boundingBox())?.y + (await board.boundingBox())?.height).toBeLessThanOrEqual(size.height);
+                const cards = await page.getByRole('article').all();
+                expect(cards).toHaveLength(Math.min(count, size.density));
+                for (let index = 0; index < cards.length; index++) {
+                    const frame = await cards[index].boundingBox();
+                    expect(frame.width).toBeGreaterThanOrEqual(240 * percent / 100);
+                    expect(frame.height).toBeGreaterThanOrEqual(168 * percent / 100);
+                    expect(frame.y + frame.height).toBeLessThanOrEqual(size.height);
+                    const header = await cards[index].locator('.player-nameplate').boundingBox();
+                    const well = await cards[index].locator('.life-well').boundingBox();
+                    expect(size.density === 4 && index < 2 ? header.y > well.y : header.y < well.y).toBe(true);
+                    const buttons = await cards[index].getByRole('button').all();
+                    for (const button of buttons) {
+                        const target = await button.boundingBox();
+                        expect(target.width).toBeGreaterThanOrEqual(48); expect(target.height).toBeGreaterThanOrEqual(48);
+                        expect(target.x).toBeGreaterThanOrEqual(frame.x); expect(target.x + target.width).toBeLessThanOrEqual(frame.x + frame.width);
+                        expect(target.y).toBeGreaterThanOrEqual(frame.y); expect(target.y + target.height).toBeLessThanOrEqual(frame.y + frame.height);
+                    }
+                    const minus = await cards[index].getByRole('button', { name: /Decrease life/ }).boundingBox();
+                    const plus = await cards[index].getByRole('button', { name: /Increase life/ }).boundingBox();
+                    expect(minus.x + minus.width).toBeLessThanOrEqual(plus.x);
+                    // Glyphs can extend outside a short line box with visible
+                    // overflow. Check their actual bounds against the containing
+                    // band/well, where clipping or overlap would affect reading.
+                    const textFits = await cards[index].locator('h2, .counter-value').evaluateAll(elements => elements.every(element => {
+                        const range = document.createRange(); range.selectNodeContents(element);
+                        const text = range.getBoundingClientRect();
+                        const region = element.closest('.player-nameplate, .life-well').getBoundingClientRect();
+                        return element.scrollWidth <= element.clientWidth && text.left >= region.left && text.right <= region.right && text.top >= region.top && text.bottom <= region.bottom;
+                    }));
+                    expect(textFits).toBe(true);
+                }
+                const menu = await page.getByRole('button', { name: 'Table menu' }).boundingBox();
+                expect(menu.y + menu.height).toBeLessThanOrEqual(size.height);
+                if (count > size.density) {
+                    const pager = await page.getByRole('navigation', { name: 'Table pages' }).boundingBox();
+                    expect(pager.y + pager.height).toBeLessThanOrEqual(size.height);
+                }
+            } else {
+                await expect(board).toHaveCount(0);
+                await expect(page.getByRole('region', { name: 'Player roster' })).toBeVisible();
+                const button = page.getByRole('button', { name: 'Increase life for Player 1', exact: true });
+                await button.scrollIntoViewIfNeeded(); const target = await button.boundingBox();
+                expect(target.width).toBeGreaterThanOrEqual(48); expect(target.height).toBeGreaterThanOrEqual(48);
+            }
+            expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+        }
+        console.log('board geometry verified', { count, percent, viewports: cases.length });
+    });
+}
+test('changing root text size without resizing re-evaluates four-up and preserves edits', async ({ page }) => {
+    await start(page, 4, { width: 844, height: 390 });
+    await page.getByRole('button', { name: 'Decrease life for Player 1', exact: true }).click();
+    await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
+    await expect(page.locator('.responsive-board-grid')).toHaveCount(0);
+    await expect(page.getByLabel('Life: 39', { exact: true })).toBeVisible();
+    await page.addStyleTag({ content: 'html { font-size: 100% !important; }' });
+    await expect(page.locator('.responsive-board-grid')).toHaveAttribute('data-density', '4');
+    await expect(page.getByLabel('Life: 39', { exact: true })).toBeVisible();
+});
 for (const count of [2, 4, 6, 12]) {
     test(`${count} players keep contiguous page groups and isolated values`, async ({ page }) => {
         await start(page, count);

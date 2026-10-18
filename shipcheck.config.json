@@ -98,7 +98,8 @@
       "src/App.test.tsx",
       "src/index.css",
       "test/browser/responsive.spec.mjs",
-      "test/browser/table-setup.spec.mjs"
+      "test/browser/table-setup.spec.mjs",
+      "test/browser/obsidian.spec.mjs"
     ],
     "requirements": [
       {
