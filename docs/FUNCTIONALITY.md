@@ -43,8 +43,20 @@ Storybook build. Codex returned fresh matched supporting evidence for all four
 Tabletop requirements and no general candidates. The earlier responsive ticket
 has not received a separate final requirements review.
 
+Responsive review resumed on October 18 for draft PR #9. All four offline
+checks (73 behavioral tests), 21 browser tests, fresh build/artifact integration
+and Storybook build passed. The first resumed Codex run raised no code concerns;
+five requirements had matched supporting evidence, while the library/tests
+assessment was downgraded because its Storybook quotation did not match the
+valid source. Fresh browser/Storybook execution evidence was added to
+[the verification record](OBSIDIAN_VALIDATION.md). The next Codex run failed
+with `invalid-task-assessment` (not exactly one assessment per requirement).
+The loop stopped as required; responsive completion remains blocked. See
+`audit-reports/m2-responsive-resume/`. No application edits were needed, and the
+temporary context limit was restored to 64,000.
+
 ## Maintaining this baseline
 
 Update this document when an authorized ticket delivers verified behavior. Describe only the delivered portion, link its evidence from the roadmap completion log, and leave unfinished scope in the roadmap. A visual selection or prototype interaction does not change application status.
 
-The current `shipcheck.config.json` ticket is `tabletop-mode`. Follow [the developer loop](DEVELOPER_LOOP.md) and [Shipcheck requirements](SHIPCHECK.md) for implementation and verification; this documentation change does not satisfy an application completion gate.
+The current `shipcheck.config.json` ticket is `responsive-board-focus`. Follow [the developer loop](DEVELOPER_LOOP.md) and [Shipcheck requirements](SHIPCHECK.md) for implementation and verification; this documentation change does not satisfy an application completion gate.

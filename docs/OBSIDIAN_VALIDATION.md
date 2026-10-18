@@ -114,3 +114,29 @@ Source SHA-256 identities at execution:
 - `src/test-fixtures/player-frame.tsx`: `0aa18319973ccc08d5c9f6908b21bf70307fda074f002a145e69e700f19392fc`
 - `test/browser/obsidian.spec.mjs`: `c156be17b57508b89e2b6423b200de127dfffd94cd3a39fd0d752a695aba8cd9`
 - `playwright.config.mjs`: `4ea204a039086134d79ab93fa03e5fc7686d7d7e71c9d69db57a0a87608e7fc1`
+
+## Responsive board, paging, Focus and Tabletop verification — October 18, 2026
+
+Executed against application source at commit `ecc7a67` (review configuration/documentation changes only since that commit), Windows and Node 22. The earlier M1 record above is historical.
+
+- `shipcheck audit . --run-checks --json`: lint, types-app, types-node and behavior all passed; 73 tests across seven files.
+- `npm run test:integration`: fresh production build and artifact integration passed.
+- `npm run test:browser`: all 21 tests passed in 23.6 seconds, exit 0.
+- `npm run build-storybook`: build completed successfully, exit 0.
+
+Browser execution includes the complete seven-test Obsidian suite, six responsive tests (2/4/6/12 players, four-up 844×390, density fallback 736×360, Focus at 390×844 and 320×568), five setup tests and three Tabletop tests. Checks cover contiguous paging and page boundaries, isolated life/poison edits, roster selection/focus, Adjust focus, modal focus return, enlarged text and rotated controls. Test source and logs document the exact assertions; this is browser automation, not physical-phone or screen-reader validation.
+
+Storybook includes TwoPlayers, FourPlayers, TwelvePlayers, FocusRoster and TwoSeatPaging plus TabletopFour, TabletopTwo and TabletopPaging. Shared PlayerRoster and TableMenu stories are also built. The build verifies example compilation; it is not a claim that Storybook interaction tests were executed.
+
+Raw execution logs: `audit-reports/m2-responsive-resume/cycle4-browser.log`, `cycle4-storybook.log`, `cycle3-audit.json` and `integration.log`. These are ignored local records.
+
+Source SHA-256 identities at browser/Storybook execution:
+
+- src/LifeTracker.tsx: 33b62feb6d78720483c471c6c85cc9d083917d77a96a28feede01dc85456c5ec
+- src/LifeTracker.stories.tsx: bc84651362c665451091e291aa0b1a83b9f545627006b119153ccb76e273d816
+- src/LifeTracker.responsive.test.tsx: 6e3e4cfac4e3fe60eef698f9e4e7a8aae0ca43f0da43fccda993e6446a05ae89
+- src/layout.ts: 0860cacf844a35f522a18adc818b24d28b8c261e714fa28ebbe2cdda30c5b9e5
+- src/index.css: 90a45ef13f77caf277ea9207f6366159dd4c276a1455071619356b8c42c7f4a5
+- test/browser/responsive.spec.mjs: 01bbfd5c90f22d04633e1dd458fbc746adc66eb1c6ea600b41660c531af1baee
+- test/browser/table-setup.spec.mjs: 587513226af5a4d792c3fa2e49fe219b789e46762ebb4f82c96d8e69485dac1b
+- test/browser/tabletop.spec.mjs: 4e0d12e34d5087452528e5362949605cfe9596c44c00d4cdb982d20591e70b07

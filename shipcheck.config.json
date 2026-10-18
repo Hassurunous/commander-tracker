@@ -79,39 +79,56 @@
     "codexTimeoutMs": 120000
   },
   "currentTask": {
-    "id": "tabletop-mode",
-    "title": "M2 Tabletop mode with opposite-facing top row",
+    "id": "responsive-board-focus",
+    "title": "M2 responsive Pass-around board, stable paging and Focus editor/roster",
     "files": [
       "src/LifeTracker.tsx",
       "src/layout.ts",
       "src/layout.test.ts",
+      "src/useTableSpace.ts",
+      "src/components/PlayerFrame.tsx",
+      "src/components/PlayerRoster.tsx",
+      "src/components/SelectedPlayerEditor.tsx",
+      "src/components/PageControls.tsx",
       "src/components/TableMenu.tsx",
+      "src/components/TableMenu.stories.tsx",
+      "src/components/PlayerRoster.stories.tsx",
       "src/LifeTracker.stories.tsx",
       "src/LifeTracker.responsive.test.tsx",
+      "src/App.test.tsx",
       "src/index.css",
-      "test/browser/tabletop.spec.mjs"
+      "test/browser/responsive.spec.mjs",
+      "test/browser/table-setup.spec.mjs"
     ],
     "requirements": [
       {
-        "id": "orientation",
-        "text": "Add Tabletop alongside Pass-around and Focus. Four-seat boards rotate the entire top two player panels 180 degrees, bottom panels remain upright; preserve seat order. Two-seat Tabletop uses one column/two rows with only upper panel rotated; reserve adequate height or fall back to Focus. Keep inward name/tracker bands and clear central menu pocket. Controls remain minus-left/plus-right from each seated player perspective, with 48px targets."
+        "id": "board",
+        "text": "Implement an upright Pass-around board with two columns. Auto uses four visible seats when 240px-wide, 168px-high minimum panels and required controls fit (including text scaling); otherwise use two seats or Focus. Four players fit a 2x2 board at 844x390 with normal text; short landscape may fall back. Keep minus left/plus right, 48px targets and inward name/tracker bands using matching DOM order."
       },
       {
-        "id": "state",
-        "text": "Mode changes, paging and viewport/density changes preserve stable identities, seat order, life and poison. Keep existing contiguous paging and anchor page when switching Pass-around/Tabletop. In automatic narrow/short-screen Focus, keep Tabletop preference and return to rotated board when space permits. Explicit Focus remains upright."
+        "id": "paging",
+        "text": "For larger tables use stable contiguous seat groups of two or four with visible Previous/Next, page count and seat range. Grouping does not change due to values or selection. On density/viewport changes retain the page containing the previous anchor seat. No counters, IDs or seat order reset through paging or resizing."
       },
       {
-        "id": "interaction",
-        "text": "Table menu exposes Tabletop, remains modal during changes, Escape/Done restores focus. Rotated life and tracker controls operate the correct player; poison inspector and global menu remain upright, reachable and keyboard usable. Opening menu or switching views never adjusts counters."
+        "id": "focus",
+        "text": "Portrait/narrow screens or explicit Focus show one full player editor and a roster for all players. Selecting a roster button updates only editor selection, retains keyboard focus on the roster button, exposes Selected text and aria-pressed, and announces the selected player and values. Provide an explicit Adjust Player N link that scrolls/focuses the editor without changing values."
       },
       {
-        "id": "coverage",
-        "text": "Use existing shared React components without new dependencies. Add Storybook Tabletop examples for two/four players and paging; tests verify orientation, responsive fallback, state preservation, menu/modal focus and rotated controls in a real browser. Preserve existing checks and behavioral suite."
+        "id": "menu",
+        "text": "Expose only implemented Pass-around/Tabletop/Focus and Auto/2/4 density choices in a labeled native modal Table menu opened by a circular existing-app-icon button. Escape/Done return trigger focus and modal blocks background edits. Four-seat board places menu in the local meeting-corner pocket with no full-width menu strip or life hit region behind it; Focus/two-seat layouts use an inline menu row. Preserve requested preferences during automatic fallback and describe fallback."
+      },
+      {
+        "id": "preservation",
+        "text": "Preserve 2-12 setup, stable IDs/seats, initial40/0, negative life, poison floor, queued updates and player isolation. Presentation preferences are session-local and selection is not turn order. Layout/selection/menu actions never mutate game values."
+      },
+      {
+        "id": "library-tests",
+        "text": "Use shared typed React components and Storybook states for board, paging, Focus, roster and menu. Preserve existing behavioral assertions by adapting navigation; add pure layout, component and real-browser coverage for representative2/4/6/12 tables, 844x390,736x360,390x844,320x568, enlarged text, page boundaries, focus return and state preservation."
       }
     ],
     "nonGoals": [
-      "No six-up density, gestures, undo, persistence, networking or player management. No unrelated new features or audit-policy changes.",
-      "This ticket adds Tabletop to the existing uncommitted responsive implementation; prior responsive Codex review is pending. Do not claim physical-device or screen-reader validation."
+      "Tabletop rotation was subsequently authorized and reviewed separately; no additional Tabletop features, six-visible density, quick life zones, undo, gestures, persistence, network sync, generic tracking, player management or counts above twelve.",
+      "No dependency additions or audit-policy/threshold changes. No physical-device or screen-reader validation claim."
     ]
   },
   "resources": [

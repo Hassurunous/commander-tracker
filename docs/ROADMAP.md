@@ -4,7 +4,7 @@ Updated October 16, 2026. This is the home for intended functionality, open prod
 
 ## How to use this roadmap
 
-The owner has selected the product and layout direction below. Milestone order and packaging are proposed; no delivery dates or implementation tickets are committed. A roadmap entry is not authorization to implement it, change audit requirements, or spend on reviews. Before beginning a ticket, reconcile its approved requirements and non-goals with `shipcheck.config.json`; the active ticket is `tabletop-mode`.
+The owner has selected the product and layout direction below. Milestone order and packaging are proposed; no delivery dates or implementation tickets are committed. A roadmap entry is not authorization to implement it, change audit requirements, or spend on reviews. Before beginning a ticket, reconcile its approved requirements and non-goals with `shipcheck.config.json`; the active ticket is `responsive-board-focus`.
 
 Track implementation status separately from product decisions:
 
@@ -101,6 +101,18 @@ production build/artifact test, and Storybook build passed. Shipcheck's Codex
 review failed to start with `spawn EPERM` and produced no AI report. The loop
 stopped on that operational failure; AI review and ticket completion remain
 pending. The approved temporary 96,000-byte context limit was restored to 64,000.
+
+Review resumed for draft PR #9 on October 18. All four offline checks, 73
+behavioral tests, 21 browser tests, fresh build/artifact integration and Storybook
+build passed. Codex initially supported five requirements with matched evidence
+and proposed support for the sixth, but quoted Storybook incorrectly. Fresh
+execution evidence was added to [the verification record](OBSIDIAN_VALIDATION.md).
+The next run failed with `invalid-task-assessment` because the response did not
+contain exactly one valid assessment per requirement. No code defect was
+confirmed. The loop stopped on that execution failure; PR #9 remains a draft.
+The active ticket is again `responsive-board-focus`, reconciled with the
+separately-authorized Tabletop menu option. The context limit is restored to
+64,000; no API calls were used. Reports: `audit-reports/m2-responsive-resume/`.
 
 ## Intended functionality and product decisions
 
