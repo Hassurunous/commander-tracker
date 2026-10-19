@@ -58,3 +58,47 @@ button:active { background: var(--ct-inset); }
 .table-setup input:focus-visible { outline: 3px solid var(--ct-focus); outline-offset: 3px; }
 .setup-error { color: #ffb4a8; }
 @media (forced-colors: active) { .table-setup { border-color: CanvasText; } .table-setup input { border-color: ButtonText; } .table-setup input:focus-visible { outline-color: Highlight; } }
+
+.table-play { position: relative; }
+.responsive-board-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: 8px; }
+.responsive-board-grid[data-density="4"] { grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.responsive-board-grid[data-mode="tabletop"][data-density="2"] { grid-template-columns: minmax(0, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr)); }
+.tabletop-rotated { transform: rotate(180deg); }
+.responsive-board-grid .player-frame { min-height: 0; padding: 8px; gap: 4px; }
+.compact-frame .player-nameplate { flex: 0 0 auto; }
+.compact-frame .life-well { display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center; gap: 4px; padding: 4px; overflow: auto; min-height: 0; }
+.compact-frame .counter-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.compact-frame .counter-value { font-size: 3rem; margin: 0; grid-column: 2; grid-row: 1; }
+.compact-frame .counter-actions { display: contents; }
+.compact-frame .counter-actions button { grid-row: 1; padding: 4px; }
+.compact-frame .counter-actions button:first-child { grid-column: 1; }
+.compact-frame .counter-actions button:last-child { grid-column: 3; }
+.pocket-seat-0 { border-bottom-right-radius: 56px; }
+.pocket-seat-1 { border-bottom-left-radius: 56px; }
+.pocket-seat-2 { border-top-right-radius: 56px; }
+.pocket-seat-3 { border-top-left-radius: 56px; }
+.pocket-seat-0 .player-nameplate, .pocket-seat-2 .player-nameplate { margin-right: 32px; }
+.pocket-seat-1 .player-nameplate, .pocket-seat-3 .player-nameplate { margin-left: 32px; }
+.table-menu-position { display: flex; justify-content: center; margin: 8px 0; z-index: 2; }
+.table-menu-position[style] { margin: 0; }
+.table-menu-trigger { width: 48px; height: 48px; padding: 0; flex: 0 0 48px; border-radius: 50%; border: 2px solid var(--ct-metal); display: inline-flex; justify-content: center; align-items: center; }
+.table-menu-trigger img { border-radius: 50%; }
+.table-menu { width: min(440px, calc(100% - 24px)); max-height: calc(100% - 24px); overflow: auto; border: 2px solid var(--ct-metal); border-radius: 20px; background: var(--ct-surface); color: var(--ct-text); padding: 24px; }
+.table-menu::backdrop { background: rgb(0 0 0 / 75%); }
+.table-menu label { display: grid; gap: 8px; margin: 16px 0; }
+.table-menu select { font: inherit; min-height: 48px; min-width: 48px; width: 100%; padding: 8px; color: var(--ct-text); background: var(--ct-control); border: 1px solid var(--ct-control-edge); border-radius: 10px; }
+.table-menu select:focus-visible, .player-roster a:focus-visible { outline: 3px solid var(--ct-focus); outline-offset: 3px; }
+.table-menu > button { width: 100%; }
+.page-controls { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; }
+.page-controls p { text-align: center; margin: 0; }
+.page-controls span { display: block; }
+button:disabled { cursor: default; opacity: .65; }
+.player-roster ul { list-style: none; padding: 0; display: grid; gap: 12px; }
+.player-roster button { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; text-align: left; }
+.player-roster button span { overflow-wrap: anywhere; }
+.player-roster button[aria-pressed="true"] { border: 2px solid var(--ct-metal); }
+.player-roster a { display: inline-flex; align-items: center; min-height: 48px; color: var(--ct-focus); padding: 8px; }
+.selected-player-editor > h2 { font-size: 1.125rem; }
+.selected-player-editor > h2:focus { outline: 3px solid var(--ct-focus); outline-offset: 3px; }
+.layout-notice { color: var(--ct-secondary); }
+@media (forced-colors: active) { .table-menu, .table-menu-trigger, .player-roster button[aria-pressed="true"] { border-color: ButtonText; } .table-menu select:focus-visible, .player-roster a:focus-visible { outline-color: Highlight; } }

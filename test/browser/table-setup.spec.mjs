@@ -6,9 +6,14 @@ for (const count of [2, 4, 6, 12]) {
         const countInput = page.getByRole('textbox', { name: 'Number of players' });
         await expect(countInput).toHaveValue('4'); await countInput.fill(String(count));
         await countInput.press('Enter');
-        await expect(page.getByRole('article')).toHaveCount(count);
+        await expect(page.getByRole('heading', { name: `Table with ${count} players` })).toBeVisible();
         await expect(page.getByRole('heading', { name: `Table with ${count} players` })).toBeFocused();
-        const order = await page.locator('.player-nameplate h2').allTextContents();
+        await page.getByRole('button', { name: 'Table menu' }).click();
+        await page.getByRole('combobox', { name: 'View' }).selectOption('focus');
+        await page.getByRole('button', { name: 'Done' }).click();
+        await expect(page.getByRole('button', { name: /^Select Player / })).toHaveCount(count);
+        const order = await page.getByRole('button', { name: /^Select Player / }).allTextContents();
+        await page.getByRole('button', { name: `Select Player ${count}`, exact: true }).click();
         await page.getByRole('button', { name: `Decrease life for Player ${count}`, exact: true }).click();
         await page.getByRole('button', { name: `Trackers for Player ${count}`, exact: true }).click();
         await page.getByRole('button', { name: `Decrease poison for Player ${count}`, exact: true }).click();
@@ -17,9 +22,9 @@ for (const count of [2, 4, 6, 12]) {
         await page.keyboard.press('Escape');
         for (const size of [{ width: 320, height: 568 }, { width: 844, height: 390 }, { width: 390, height: 844 }]) {
             await page.setViewportSize(size);
-            expect(await page.locator('.player-nameplate h2').allTextContents()).toEqual(order);
+            expect((await page.getByRole('button', { name: /^Select Player / }).allTextContents()).map(text => text.replace(/Life: \d+/g, '').replace(/Poison: \d+/g, '').replace(/Selected/g, ''))).toEqual(order.map(text => text.replace(/Life: \d+/g, '').replace(/Poison: \d+/g, '').replace(/Selected/g, '')));
             await expect(page.getByRole('article', { name: `Player ${count}`, exact: true }).getByLabel('Life: 39')).toBeVisible();
-            await expect(page.getByLabel('Life: 40', { exact: true })).toHaveCount(count - 1);
+            await expect(page.getByRole('region', { name: 'Player roster' }).getByText('Life: 40', { exact: true })).toHaveCount(count - 1);
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
             const target = await page.getByRole('button', { name: `Increase life for Player ${count}`, exact: true }).boundingBox();
             expect(target.width).toBeGreaterThanOrEqual(48); expect(target.height).toBeGreaterThanOrEqual(48);
@@ -38,5 +43,5 @@ test('narrow enlarged-text form validates accessibly and can be corrected', asyn
     await expect(input).toHaveAttribute('aria-invalid', 'true'); await expect(input).toHaveValue('13');
     await expect(page.getByRole('article')).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    await input.fill('4'); await input.press('Enter'); await expect(page.getByRole('article')).toHaveCount(4);
+    await input.fill('4'); await input.press('Enter'); await expect(page.getByRole('button', { name: /^Select Player / })).toHaveCount(4);
 });

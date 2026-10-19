@@ -132,7 +132,10 @@ test('rendered text, control edges, focus and tracker clearance meet the approve
     for (const fontSize of [100, 200]) {
         await page.setViewportSize({ width: 320, height: 568 });
         await page.addStyleTag({ content: `html { font-size: ${fontSize}% !important; }` });
-        for (const entry of await page.locator('.tracker-entry').all()) {
+        await expect(page.getByRole('region', { name: 'Player roster' })).toBeVisible();
+        for (const player of ['Player 1', 'Player 2']) {
+            await page.getByRole('button', { name: `Select ${player}`, exact: true }).click();
+            const entry = page.getByRole('button', { name: `Trackers for ${player}`, exact: true });
             const geometry = await entry.evaluate(element => {
                 const target = element.getBoundingClientRect();
                 const plate = element.parentElement.getBoundingClientRect();

@@ -4,7 +4,7 @@ Updated October 16, 2026. This is the home for intended functionality, open prod
 
 ## How to use this roadmap
 
-The owner has selected the product and layout direction below. Milestone order and packaging are proposed; no delivery dates or implementation tickets are committed. A roadmap entry is not authorization to implement it, change audit requirements, or spend on reviews. Before beginning a ticket, reconcile its approved requirements and non-goals with `shipcheck.config.json`; the active ticket is `table-setup-identities`.
+The owner has selected the product and layout direction below. Milestone order and packaging are proposed; no delivery dates or implementation tickets are committed. A roadmap entry is not authorization to implement it, change audit requirements, or spend on reviews. Before beginning a ticket, reconcile its approved requirements and non-goals with `shipcheck.config.json`; the active ticket is `responsive-board-focus`.
 
 Track implementation status separately from product decisions:
 
@@ -21,7 +21,7 @@ A selected design is not a completed application milestone. Do not infer complet
 | ID | Outcome | Implementation status | Dependency or decision |
 | --- | --- | --- | --- |
 | M1 | Obsidian visual foundation and accessible player controls | In progress | Foundation merged in PR #6; Codex review and browser checks passed. Physical-device/screen-reader validation or explicit acceptance remains outstanding. |
-| M2 | Expandable local tables and configurable responsive layouts | In progress | `table-setup-identities`: setup and stable IDs for 2–12 authorized. Responsive modes/paging remain a separate ticket; above-twelve safeguards deferred. |
+| M2 | Expandable local tables and configurable responsive layouts | In progress | Setup/stable IDs merged in PR #8. `responsive-board-focus` is implementing Pass-around, paging and Focus. Tabletop is being added in `tabletop-mode`; above-twelve safeguards remain deferred. |
 | M3 | Generic counters and commander-to-recipient tracking | Planned | Tracker defaults, bounds, and damage/life coupling |
 | M4 | Fast shared-device adjustments and accessible recovery | Planned | Gesture and undo decisions; real-device validation |
 | M5 | Connected personal phones operating the same game | Planned | Separate networking, identity, permissions, and recovery brief |
@@ -83,7 +83,99 @@ When a milestone completes, append a dated entry with its ID, delivered scope, t
   `audit-reports/m2-table-setup/` for reports. This delivers the first ticket
   locally; M2 stays in progress until the deferred responsive work is delivered.
 
+## Responsive board ticket (October 18, 2026)
+
+The first M2 ticket is merged in [PR #8](https://github.com/Hassurunous/commander-tracker/pull/8)
+(merge `f07aa45`). Current work is `responsive-board-focus`: a two-/four-seat
+upright board, stable contiguous paging, a Focus editor and roster, and a modal
+Table menu exposing only Pass-around/Focus and Auto/2/4 preferences. Layout uses
+available width/height and root text scaling, reserving space for page/menu
+controls. Four-up is intended at 844×390 for four players; tables requiring page
+controls may use two-up at that height and four-up on taller landscape displays.
+Presentation changes retain player state and the group containing the anchor seat.
+Tabletop rotation, six-up density, quick life zones and persistence remain separate.
+Validation evidence is recorded under `audit-reports/m2-responsive/`; this ticket
+does not claim physical-device or screen-reader validation or full M2 closure.
+All four offline checks (71 behavioral tests), 18 browser tests, the fresh
+production build/artifact test, and Storybook build passed. Shipcheck's Codex
+review failed to start with `spawn EPERM` and produced no AI report. The loop
+stopped on that operational failure; AI review and ticket completion remain
+pending. The approved temporary 96,000-byte context limit was restored to 64,000.
+
+Review resumed for draft PR #9 on October 18. All four offline checks, 73
+behavioral tests, 21 browser tests, fresh build/artifact integration and Storybook
+build passed. Codex initially supported five requirements with matched evidence
+and proposed support for the sixth, but quoted Storybook incorrectly. Fresh
+execution evidence was added to [the verification record](OBSIDIAN_VALIDATION.md).
+The next run failed with `invalid-task-assessment` because the response did not
+contain exactly one valid assessment per requirement. No code defect was
+confirmed. The loop stopped on that execution failure; PR #9 remains a draft.
+The active ticket is again `responsive-board-focus`, reconciled with the
+separately-authorized Tabletop menu option. The context limit is restored to
+64,000; no API calls were used. Reports: `audit-reports/m2-responsive-resume/`.
+
+The owner authorized cycle five to investigate the invalid assessment and retry.
+The Shipcheck decoder rejects missing/duplicate assessments or unknown primary
+or related IDs; the prior raw response was not preserved, so its exact bad field
+cannot be established. The new run completed with all six valid IDs, no code
+concerns, and proposed supporting evidence for all six requirements. Five passed
+quotation verification; library/tests was downgraded because Codex over-escaped
+a regex when quoting browser-test source. No source defect was confirmed or
+application edit made. Fresh offline checks (73 tests) and production/artifact
+integration passed. The five-cycle limit is reached; PR #9 stays a draft pending
+a matched library/tests assessment or explicit owner acceptance. Context is
+restored to 64,000. Reports: `audit-reports/m2-responsive-cycle5/`.
+
+After the owner reported a Shipcheck fix, an additional review used updated build
+`3edc8c6` (redundant context escaping removed; exact matching retained). Codex
+completed with five matched supporting assessments and no code concerns. The
+remaining library/tests assessment was downgraded because its quotation omitted
+a closing brace from the valid `TabletopTwo` story. This run does not establish
+regex quoting behavior because no regex was cited in the rejected evidence.
+Fresh offline checks and production/artifact integration passed. PR #9 remains
+a draft; the context limit is restored to 64,000. Reports:
+`audit-reports/m2-responsive-updated-shipcheck/`.
+
+A further owner-authorized rerun used the compiled structured evidence-selection
+update from the trusted Shipcheck working checkout. Every citation matched and
+library/tests is now supported. Codex reported no code defect, supporting five
+requirements, but assessed board geometry/targets/text scaling as insufficient
+evidence. Browser tests verify 844×390 four-up geometry and narrow enlarged-text
+controls; full-app enlarged landscape geometry is not explicitly measured.
+All 21 browser tests passed again, as did all four offline checks and fresh
+production/artifact integration. The board assessment is unresolved, so PR #9
+remains a draft. The context limit is restored to 64,000. Reports:
+`audit-reports/m2-responsive-evidence-selection/`.
+
+**Responsive board/paging/Focus review completed:** the owner-authorized coverage
+follow-up adds 60 measured browser geometry cases (2/4/6/12 players × three text
+sizes × five viewports) plus a live font-size regression. It fixes a confirmed
+failure to recalculate fit when enlarged text leaves the root/board box sizes
+unchanged, using a cleaned-up rem-sized ResizeObserver probe. The older tracker
+geometry test now waits for Focus and checks both players via the roster.
+All 34 browser tests, 73 behavioral tests, lint, both TypeScript checks, fresh
+production/artifact integration and Storybook build passed. Final Codex review
+supports all six responsive requirements with fresh matched evidence and no
+general candidates. PR #9 is ready for human review; previous blockers above
+are historical. The explicitly approved temporary 128,000-byte context is restored
+to 64,000, with no threshold changes or API calls. Reports:
+`audit-reports/m2-board-coverage/`. Physical-device/screen-reader validation and
+remaining M2 features are still separate.
+
 ## Intended functionality and product decisions
+
+The authorized `tabletop-mode` extension adds opposite-facing upper panels to
+the responsive board: two rotated panels on four-seat pages, or one upper panel
+on vertically stacked two-seat pages. Paging, player values and responsive Focus
+fallback are preserved. Storybook includes two-seat, four-seat and paged examples.
+See `audit-reports/m2-tabletop/` for this ticket's validation; earlier responsive
+review status above is historical and is not a review of this extension.
+Tabletop is ready for human review locally (October 18): all four offline checks,
+73 behavioral tests, 21 browser tests, production/artifact integration and
+Storybook build passed. Codex assessed all four Tabletop requirements with fresh
+matched supporting evidence and no general candidates. No limits changed or API
+calls were used. This does not close the earlier responsive ticket's separate
+requirements review or M2.
 
 **Selected direction** records owner preferences. **Proposed detail** awaits adoption into an approved ticket. **Unresolved** requires a product decision before dependent work. The sections below retain those distinctions; milestone placement does not approve every proposal.
 

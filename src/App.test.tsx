@@ -10,6 +10,7 @@ beforeAll(() => {
 afterEach(cleanup);
 const input = () => screen.getByRole('textbox', { name: 'Number of players' });
 const start = () => fireEvent.click(screen.getByRole('button', { name: 'Start table' }));
+function focusView() { fireEvent.click(screen.getByRole('button', { name: 'Table menu' })); fireEvent.change(screen.getByRole('combobox', { name: 'View' }), { target: { value: 'focus' } }); fireEvent.click(screen.getByRole('button', { name: 'Done' })); }
 
 describe('new table setup', () => {
     it('defaults to four, starts via keyboard, and focuses the table heading', async () => {
@@ -23,8 +24,11 @@ describe('new table setup', () => {
     });
     it.each(Array.from({ length: 11 }, (_, i) => i + 2))('starts exactly %i players with unchanged baseline values', count => {
         render(<App />); fireEvent.change(input(), { target: { value: String(count) } }); start();
-        expect(screen.getAllByRole('article')).toHaveLength(count);
+        expect(screen.getByRole('heading', { name: `Table with ${count} players` })).toBeTruthy();
+        focusView();
+        expect(screen.getAllByRole('button', { name: /^Select Player / })).toHaveLength(count);
         for (let seat = 1; seat <= count; seat++) {
+            fireEvent.click(screen.getByRole('button', { name: `Select Player ${seat}` }));
             const player = within(screen.getByRole('article', { name: `Player ${seat}` }));
             expect(player.getByLabelText('Life: 40')).toBeTruthy();
             fireEvent.click(player.getByRole('button', { name: `Trackers for Player ${seat}` }));
@@ -41,19 +45,21 @@ describe('new table setup', () => {
         fireEvent.change(input(), { target: { value: '2' } }); start(); expect(screen.getAllByRole('article')).toHaveLength(2);
     });
     it('isolates Player 12 and preserves the table through rerenders and inspector changes', async () => {
-        const user = userEvent.setup(); const view = render(<LifeTracker initialCount={12} />);
+        const user = userEvent.setup(); const view = render(<LifeTracker initialCount={12} initialMode="focus" />);
+        await user.click(screen.getByRole('button', { name: 'Select Player 12' }));
         await user.click(screen.getByRole('button', { name: 'Decrease life for Player 12' }));
         await user.click(screen.getByRole('button', { name: 'Trackers for Player 12' }));
         await user.click(screen.getByRole('button', { name: 'Decrease poison for Player 12' }));
         await user.click(screen.getByRole('button', { name: 'Increase poison for Player 12' }));
         view.rerender(<LifeTracker initialCount={4} />);
-        expect(screen.getAllByRole('article')).toHaveLength(12);
+        expect(screen.getAllByRole('button', { name: /^Select Player / })).toHaveLength(12);
         expect(screen.getByRole('dialog', { name: 'Trackers for Player 12' })).toBeTruthy();
         expect(screen.getByLabelText('Poison: 1')).toBeTruthy();
         await user.click(screen.getByRole('button', { name: 'Done' }));
         expect(within(screen.getByRole('article', { name: 'Player 12' })).getByLabelText('Life: 39')).toBeTruthy();
-        expect(screen.getAllByLabelText('Life: 40')).toHaveLength(11);
+        expect(within(screen.getByRole('region', { name: 'Player roster' })).getAllByText('Life: 40')).toHaveLength(11);
         for (let seat = 1; seat <= 11; seat++) {
+            await user.click(screen.getByRole('button', { name: `Select Player ${seat}` }));
             await user.click(screen.getByRole('button', { name: `Trackers for Player ${seat}` }));
             expect(screen.getByLabelText('Poison: 0')).toBeTruthy(); await user.click(screen.getByRole('button', { name: 'Done' }));
         }

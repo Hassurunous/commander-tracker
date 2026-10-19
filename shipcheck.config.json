@@ -79,54 +79,57 @@
     "codexTimeoutMs": 120000
   },
   "currentTask": {
-    "id": "table-setup-identities",
-    "title": "M2 first ticket: local table setup for two through twelve players with stable identities",
+    "id": "responsive-board-focus",
+    "title": "M2 responsive Pass-around board, stable paging and Focus editor/roster",
     "files": [
-      "src/App.tsx",
-      "src/App.test.tsx",
-      "src/table.ts",
-      "src/table.test.ts",
-      "src/poison.ts",
       "src/LifeTracker.tsx",
-      "src/LifeTracker.test.tsx",
-      "src/LifeTracker.state.test.tsx",
-      "src/components/TableSetup.tsx",
-      "src/components/TableSetup.stories.tsx",
-      "src/LifeTracker.stories.tsx",
+      "src/layout.ts",
+      "src/layout.test.ts",
+      "src/useTableSpace.ts",
       "src/components/PlayerFrame.tsx",
+      "src/components/PlayerRoster.tsx",
+      "src/components/SelectedPlayerEditor.tsx",
+      "src/components/PageControls.tsx",
+      "src/components/TableMenu.tsx",
+      "src/components/TableMenu.stories.tsx",
+      "src/components/PlayerRoster.stories.tsx",
+      "src/LifeTracker.stories.tsx",
+      "src/LifeTracker.responsive.test.tsx",
+      "src/App.test.tsx",
       "src/index.css",
-      "test/browser/obsidian.spec.mjs",
-      "test/browser/table-setup.spec.mjs"
+      "test/browser/responsive.spec.mjs",
+      "test/browser/table-setup.spec.mjs",
+      "test/browser/obsidian.spec.mjs"
     ],
     "requirements": [
       {
-        "id": "setup",
-        "text": "Application first renders an accessible new-table form defaulting to four players. Starting any whole count from two through twelve creates exactly that many players, named and seated in order, each at 40 life and zero poison."
+        "id": "board",
+        "text": "Implement an upright Pass-around board with two columns. Auto uses four visible seats when 240px-wide, 168px-high minimum panels and required controls fit (including text scaling); otherwise use two seats or Focus. Four players fit a 2x2 board at 844x390 with normal text; short landscape may fall back. Keep minus left/plus right, 48px targets and inward name/tracker bands using matching DOM order."
       },
       {
-        "id": "validation",
-        "text": "Reject empty input, fractions, non-finite values, unsafe integers, counts below two and above twelve before allocation. Show a visible accessible inline error and retain the input for correction. Two-through-twelve is this ticket scope, not a permanent product ceiling."
+        "id": "paging",
+        "text": "For larger tables use stable contiguous seat groups of two or four with visible Previous/Next, page count and seat range. Grouping does not change due to values or selection. On density/viewport changes retain the page containing the previous anchor seat. No counters, IDs or seat order reset through paging or resizing."
       },
       {
-        "id": "identity",
-        "text": "Assign each player a distinct stable ID and seat on table creation. Use IDs for React keys and targeted updates, not names or array positions. Keep IDs, seat order and values stable through rerenders, inspector open/close and viewport changes."
+        "id": "focus",
+        "text": "Portrait/narrow screens or explicit Focus show one full player editor and a roster for all players. Selecting a roster button updates only editor selection, retains keyboard focus on the roster button, exposes Selected text and aria-pressed, and announces the selected player and values. Provide an explicit Adjust Player N link that scrolls/focuses the editor without changing values."
       },
       {
-        "id": "behavior",
-        "text": "Keep decrement left and increment right. Each activation changes only the intended player value by one. Preserve negative life, poison floor at zero, modal focus behavior, and all queued updates; twelve-player overflow must scroll without shrinking targets."
+        "id": "menu",
+        "text": "Expose only implemented Pass-around/Tabletop/Focus and Auto/2/4 density choices in a labeled native modal Table menu opened by a circular existing-app-icon button. Escape/Done return trigger focus and modal blocks background edits. Four-seat board places menu in the local meeting-corner pocket with no full-width menu strip or life hit region behind it; Focus/two-seat layouts use an inline menu row. Preserve requested preferences during automatic fallback and describe fallback."
       },
       {
-        "id": "components",
-        "text": "Use shared typed custom React components and Storybook stories for the setup form and representative two-, four- and twelve-player tables. Maintain visible focus, accessible input and control names, minimum 48px targets, narrow layouts and readable enlarged text."
+        "id": "preservation",
+        "text": "Preserve 2-12 setup, stable IDs/seats, initial40/0, negative life, poison floor, queued updates and player isolation. Presentation preferences are session-local and selection is not turn order. Layout/selection/menu actions never mutate game values."
       },
       {
-        "id": "coverage",
-        "text": "Preserve existing behavioral assertions, adding model, rendered setup and browser regression coverage for valid/invalid counts, unique/stable identities, Player 12 isolation and resize preservation. Keep layout mode selection and paging for the next ticket."
+        "id": "library-tests",
+        "text": "Use shared typed React components and Storybook states for board, paging, Focus, roster and menu. Preserve existing behavioral assertions by adapting navigation; add pure layout, component and real-browser coverage for representative2/4/6/12 tables, 844x390,736x360,390x844,320x568, enlarged text, page boundaries, focus return and state preservation."
       }
     ],
     "nonGoals": [
-      "No counts above twelve, in-session player addition/removal/renaming, reset/replacement of an active game, configurable layouts, paging, portrait roster/selected editor, or Tabletop rotation.",
-      "No persistence, generic trackers, commander damage, undo, gestures, networking, dependency additions or audit-policy changes."
+      "Tabletop rotation was subsequently authorized and reviewed separately; no additional Tabletop features, six-visible density, quick life zones, undo, gestures, persistence, network sync, generic tracking, player management or counts above twelve.",
+      "No dependency additions or audit-policy/threshold changes. No physical-device or screen-reader validation claim."
     ]
   },
   "resources": [
